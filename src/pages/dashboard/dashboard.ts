@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the Dashboard page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { Profile } from "../profile/profile";
+import { UserService } from "../../providers/user-service";
+
 @IonicPage()
 @Component({
   selector: 'page-dashboard',
@@ -14,7 +11,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Dashboard {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(public navCtrl: NavController, 
+   public user: UserService, 
+   public navParams: NavParams) {
+    
+   } 
+
+  ngOnInit() {
+    this.user.addUserToDatabase(); 
   }
 
   ionViewDidLoad() {
@@ -22,3 +27,4 @@ export class Dashboard {
   }
 
 }
+

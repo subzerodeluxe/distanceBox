@@ -1,18 +1,71 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { Injectable, EventEmitter, Inject} from '@angular/core';
+import { Observable } from "rxjs/Observable";
+import { Platform, AlertController } from 'ionic-angular';
 
-/*
-  Generated class for the AuthService provider.
+import { AuthProviders, AngularFire, FirebaseAuthState, AuthMethods, FirebaseApp } from 'angularfire2'; //Add FirebaseApp 
+import { Facebook } from '@ionic-native/facebook';
+import { auth } from 'firebase';
+import { UserService } from "./user-service";
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
+ 
 @Injectable()
 export class AuthService {
-
-  constructor(public http: Http) {
-    console.log('Hello AuthService Provider');
+  private authState: FirebaseAuthState;
+  public onAuth: EventEmitter<FirebaseAuthState> = new EventEmitter();
+  public firebase : any;
+   
+   constructor(private alertCtrl: AlertController, 
+   private af: AngularFire, @Inject(FirebaseApp)firebase: any,
+   private platform: Platform, private fb: Facebook, private user: UserService) { 
+    this.firebase = firebase; 
+    
+    this.af.auth.subscribe((state: FirebaseAuthState) => {
+      this.authState = state;
+      this.onAuth.emit(state);
+    });
   }
+
+
+  loginWithFacebook() {
+    return Observable.create(observer => {
+      if (this.platform.is('cordova')) {
+        return this.fb.login(['email', 'public_profile'])
+          .then(res => { 
+            const facebookCredential = auth.FacebookAuthProvider
+            .credential(res.authResponse.accessToken);
+            this.firebase.auth().signInWithCredential(facebookCredential)
+            .then(result => {
+              observer.next();
+          })
+          .catch(error => {
+            observer.error(error);
+          });
+        });
+      } else {
+        return this.af.auth.login({
+          provider: AuthProviders.Facebook,
+          method: AuthMethods.Popup
+        }).then(result => {
+            //console.log("Dit is het result hoor " + JSON.stringify(result)); 
+            observer.next();
+          }).catch(error => {
+            observer.error(error);
+        });
+      }
+    });
+  } // loginWithFacebook
+
+ 
+  logout() {
+    this.af.auth.logout();
+  }
+ 
+  get userName():string {
+    return this.authState?this.authState.auth.displayName:'';
+  } 
+
+  get userImage():string {
+    return this.authState?this.authState.auth.photoURL:'';
+  } 
 
 }
