@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Alerts } from "../../providers/alerts";
+import { MoodModal } from "../../components/mood-modal/mood-modal";
 
 @IonicPage({
   name: 'submitMood'
@@ -16,6 +17,7 @@ export class SubmitMood {
 
   constructor(public navCtrl: NavController, 
   public alert: Alerts, 
+  public modalCtrl: ModalController,
   public navParams: NavParams) {
   }
 
@@ -30,6 +32,12 @@ export class SubmitMood {
      } else {
        this.alert.showAlertMessage("Oops", "Could not save your rating. Try again", "OK"); 
      }
+
+     // open modals 
+    
+      let modal = this.modalCtrl.create(MoodModal, { mood: this.moodRating });
+      modal.present();
+   
      
   }
 

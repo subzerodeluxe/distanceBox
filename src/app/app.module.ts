@@ -12,6 +12,7 @@ import { WeatherService } from "../providers/weather-service";
 import { Facebook } from "@ionic-native/facebook";
 import { Alerts } from "../providers/alerts";
 import { UserService } from "../providers/user-service";
+import { MoodModal } from "../components/mood-modal/mood-modal";
 
 // setup Firebase credentials 
 export const firebaseConfig = {
@@ -25,6 +26,7 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     DistanceBox, 
+    MoodModal
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ export const firebaseConfig = {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    DistanceBox
+    DistanceBox,
+    MoodModal
   ],
   providers: [
     StatusBar,

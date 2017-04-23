@@ -5,7 +5,7 @@ import { SmileRateModule } from "../../components/smile-rate/smile-rate.module";
 
 @NgModule({
   declarations: [
-    SubmitMood,
+    SubmitMood
   ],
   imports: [
     SmileRateModule,

@@ -1,0 +1,25 @@
+
+<ion-content padding scrollbar-y-auto>
+  
+  <h4>{{ welcomeMessage }}</h4>
+  
+  <h5>Your mood is {{ moodRating }}%</h5>
+
+  <h4>{{ closingMessage }}</h4>
+
+  <button *ngIf="showCamera == true" ion-button full (click)="saveCurrentMood()">
+  Sure!
+  </button>
+
+
+  <button *ngIf="shareMood == true" ion-button full (click)="saveCurrentMood()">
+  Share my mood
+  </button>
+
+</ion-content>
+
+<ion-footer>
+  <ion-navbar color="navbarGreen">
+    <ion-title (click)="closeModal()">x No thanks</ion-title>
+  </ion-navbar>
+</ion-footer>
