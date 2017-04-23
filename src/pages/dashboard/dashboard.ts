@@ -1,10 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { Profile } from "../profile/profile";
-import { UserService } from "../../providers/user-service";
 import { FirebaseApp } from "angularfire2";
 import { AuthService } from "../../providers/auth-service";
+import { FormatDate } from "../../pipes/format-date";
 
 @IonicPage({
   name: 'dashboard'
@@ -12,14 +11,17 @@ import { AuthService } from "../../providers/auth-service";
 
 @Component({
   selector: 'page-dashboard',
-  templateUrl: 'dashboard.html'
+  templateUrl: 'dashboard.html',
 })
+
 export class Dashboard {
 
-  userName: string; 
+  userName: string;
+  showMoodBox: boolean = true; 
+  date: any; 
 
   constructor(public navCtrl: NavController, 
-  public auth: AuthService, 
+  public auth: AuthService,
   @Inject(FirebaseApp)firebase: any,  
    public navParams: NavParams) {
     firebase.auth().onAuthStateChanged(user => {
@@ -32,13 +34,21 @@ export class Dashboard {
     }) 
    } 
 
+   ngOnInit() {
+     this.date = new Date(); 
+
+   }
+   hideMoodBox() {
+     this.showMoodBox = false; 
+   }
+
    logOutUser() {
      this.auth.logout();
-     this.navCtrl.setRoot("Login"); 
+     this.navCtrl.setRoot('login'); 
    }
 
    loadMoodRate() {
-      this.navCtrl.push("submitMood"); 
+      this.navCtrl.push('submitMood'); 
    }
 
 }

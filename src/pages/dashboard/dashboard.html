@@ -4,14 +4,18 @@
         <h2 *ngIf="userName">Hi {{ userName }} </h2>
     </div>
 
-    <div class="mood-box">
+    <div *ngIf="showMoodBox" class="mood-box">
         <p>How are you today?</p>
         <p>Feel like sharing your mood?</p>
 
         <div class="mood-button">
             <button ion-button (click)="loadMoodRate()">Yes</button>
+            <button ion-button (click)="hideMoodBox()">No</button>
         </div>
     </div>
+
+    <p> {{ date | formatDate }} </p>
+
 
 
 </ion-content>

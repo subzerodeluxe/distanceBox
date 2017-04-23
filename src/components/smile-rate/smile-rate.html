@@ -1,2 +1,8 @@
 <canvas width="250" height="250" #smileCanvas></canvas>
-<div id="rating">{{rating}} %</div>
+<div *ngIf="rating != null" id="rating">
+  {{rating}} %
+  <button *ngIf="rating" 
+  padding ion-button block>
+  Save Mood
+  </button>
+</div>

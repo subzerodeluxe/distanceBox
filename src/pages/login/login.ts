@@ -1,20 +1,18 @@
 import { Component, Inject } from '@angular/core';
 import { IonicPage, NavController, Platform, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { AuthService } from "../../providers/auth-service";
-import { Dashboard } from "../dashboard/dashboard";
 import { Alerts } from "../../providers/alerts";
 import { UserService } from "../../providers/user-service";
-import { Profile } from "../profile/profile";
-
 
 @IonicPage({
-  priority: 'high'
+  name: 'login'
 }) 
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
+
 export class Login {
   
  loggedIn: boolean = false;
@@ -37,7 +35,7 @@ export class Login {
       this.user.addUserToDatabase(); 
 
       loadMessage.dismiss(); 
-      this.navCtrl.setRoot("dashboard");  
+      this.navCtrl.setRoot('dashboard');  
     }, err => {
       loadMessage.dismiss();
       let message = this.alert.showAlertMessage("Bad connection?", "Could not sign you in! Try again", "OK");

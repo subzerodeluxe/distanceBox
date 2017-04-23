@@ -22,7 +22,8 @@ export class SmileRate {
         hammer.on('pan', (ev) => {
           this.handlePan(ev);
         });
- 
+        
+        this.rating = null; 
         this.drawEyes();
         this.drawSmile();
     }

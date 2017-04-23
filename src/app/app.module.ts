@@ -24,7 +24,7 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    DistanceBox
+    DistanceBox, 
   ],
   imports: [
     BrowserModule,
@@ -40,7 +40,7 @@ export const firebaseConfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService, TimezoneService, WeatherService,
-    Alerts, Facebook, UserService 
+    Alerts, Facebook, UserService
   ]
 })
 export class AppModule {}

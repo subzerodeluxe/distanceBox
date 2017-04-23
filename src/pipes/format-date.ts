@@ -1,19 +1,31 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, Injectable } from '@angular/core';
 
-/**
- * Generated class for the FormatDate pipe.
- *
- * See https://angular.io/docs/ts/latest/guide/pipes.html for more info on
- * Angular Pipes.
- */
 @Pipe({
-  name: 'format-date',
+  name: 'formatDate'
 })
+
+@Injectable()
 export class FormatDate implements PipeTransform {
-  /**
-   * Takes a value and makes it lowercase.
-   */
-  transform(value: string, ...args) {
-    return value.toLowerCase();
+  
+  transform(date) {
+    
+     let monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+      ];
+
+      let dayNames = [
+        "Sun", "Mon", "Tue", "Wed",
+        "Thu", "Fri", "Sat", 
+      ];
+
+      let day = date.getDate();
+      let dayIndex = date.getDay(); 
+      let monthIndex = date.getMonth();
+      let year = date.getFullYear();
+    
+      return dayNames[dayIndex] + ' ' + day + ' ' + monthNames[monthIndex] + ' ' + year;
   }
 }
