@@ -12,7 +12,7 @@ import { FormatDate } from "../../pipes/format-date";
     IonicPageModule.forChild(Dashboard)
   ],
   exports: [
-    Dashboard,
+    Dashboard
   ]
 })
 export class DashboardModule {}

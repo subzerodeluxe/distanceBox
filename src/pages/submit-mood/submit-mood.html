@@ -2,8 +2,11 @@
 
   <h4>How do you feel?</h4>
   <h5>Use your finger to express your mood</h5>
-  <smile-rate></smile-rate>
+  <smile-rate (moodSaved)="saveMood($event)"></smile-rate>
   
+  <button ion-button full (click)="saveCurrentMood()">
+  Save Mood
+  </button>
 </ion-content>
 
 <ion-footer>

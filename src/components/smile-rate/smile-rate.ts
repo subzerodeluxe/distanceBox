@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
  
 @Component({
   selector: 'smile-rate',
@@ -9,13 +9,14 @@ export class SmileRate {
     @ViewChild('smileCanvas') smileCanvas;
     smileHeight: number = 250;
     rating: number = Math.round(100 - ((250 - this.smileHeight) / 2));
- 
-    constructor() {
- 
+    
+    @Output() moodSaved = new EventEmitter();
+
+    constructor() { 
+       // this.moodSaved.emit(this.rating); 
     }
  
     ngAfterViewInit(){  
- 
         let hammer = new window['Hammer'](this.smileCanvas.nativeElement);
         hammer.get('pan').set({ direction: window['Hammer'].DIRECTION_ALL });
  
@@ -23,7 +24,7 @@ export class SmileRate {
           this.handlePan(ev);
         });
         
-        this.rating = null; 
+        this.rating = null;  
         this.drawEyes();
         this.drawSmile();
     }
@@ -57,7 +58,8 @@ export class SmileRate {
     }
  
     redraw(){
- 
+        
+        this.moodSaved.emit(this.rating); 
         let ctx = this.smileCanvas.nativeElement.getContext('2d');
  
         ctx.clearRect(0, 0, this.smileCanvas.nativeElement.width, this.smileCanvas.nativeElement.height);
