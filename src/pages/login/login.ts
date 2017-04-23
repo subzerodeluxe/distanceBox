@@ -7,10 +7,13 @@ import { UserService } from "../../providers/user-service";
 import { Profile } from "../profile/profile";
 
 
-@IonicPage()
+@IonicPage({
+  priority: 'high'
+}) 
+
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: 'login.html'
 })
 export class Login {
   
@@ -31,8 +34,10 @@ export class Login {
 
     this.auth.loginWithFacebook().subscribe((success) => { 
         
+      this.user.addUserToDatabase(); 
+
       loadMessage.dismiss(); 
-      this.navCtrl.setRoot(Dashboard);  
+      this.navCtrl.setRoot("dashboard");  
     }, err => {
       loadMessage.dismiss();
       let message = this.alert.showAlertMessage("Bad connection?", "Could not sign you in! Try again", "OK");

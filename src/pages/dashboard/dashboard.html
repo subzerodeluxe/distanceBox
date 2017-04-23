@@ -1,3 +1,21 @@
 <ion-content padding  scrollbar-y-auto>
 
+    <div class="welcome-box">
+        <h2 *ngIf="userName">Hi {{ userName }} </h2>
+    </div>
+
+    <div class="mood-box">
+        <p>How are you today?</p>
+        <p>Feel like sharing your mood?</p>
+
+        <div class="mood-button">
+            <button ion-button (click)="loadMoodRate()">Yes</button>
+        </div>
+    </div>
+
+
 </ion-content>
+
+<ion-footer>
+    <button ion-button full (click)="logOutUser()">Logout</button>
+</ion-footer>

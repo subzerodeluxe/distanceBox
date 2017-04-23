@@ -8,12 +8,13 @@ import { FirebaseApp, AngularFire } from "angularfire2";
 export class UserService {
 
   public firebase: any;
+  public gotUser: any; 
 
   constructor(private alert: Alerts,
   @Inject(FirebaseApp) firebase: any, public af: AngularFire) {
     firebase.auth().onAuthStateChanged(user => {
       if(user) {  
-        this.addtoDatabase(user); 
+        this.gotUser = user; 
       } else {
         this.alert.showAlertMessage("Oops", "Could not find user", "OK"); 
       }
@@ -31,6 +32,6 @@ export class UserService {
 }
 
   addUserToDatabase() {
-
+    this.addtoDatabase(this.gotUser); 
   }
 }

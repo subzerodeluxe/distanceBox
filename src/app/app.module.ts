@@ -10,11 +10,8 @@ import { AuthService } from "../providers/auth-service";
 import { TimezoneService } from "../providers/timezone-service";
 import { WeatherService } from "../providers/weather-service";
 import { Facebook } from "@ionic-native/facebook";
-import { Dashboard } from "../pages/dashboard/dashboard";
 import { Alerts } from "../providers/alerts";
 import { UserService } from "../providers/user-service";
-import { Login } from "../pages/login/login";
-import { Profile } from "../pages/profile/profile";
 
 // setup Firebase credentials 
 export const firebaseConfig = {
@@ -27,9 +24,7 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    DistanceBox,
-    Dashboard,
-    Profile 
+    DistanceBox
   ],
   imports: [
     BrowserModule,
@@ -38,9 +33,7 @@ export const firebaseConfig = {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    DistanceBox,
-    Dashboard,
-    Profile 
+    DistanceBox
   ],
   providers: [
     StatusBar,
