@@ -1,9 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 import { FirebaseApp } from "angularfire2";
 import { AuthService } from "../../providers/auth-service";
-import { FormatDate } from "../../pipes/format-date";
 
 @IonicPage({
   name: 'dashboard'
@@ -22,8 +21,7 @@ export class Dashboard {
 
   constructor(public navCtrl: NavController, 
   public auth: AuthService,
-  @Inject(FirebaseApp)firebase: any,  
-   public navParams: NavParams) {
+  @Inject(FirebaseApp)firebase: any) {
     firebase.auth().onAuthStateChanged(user => {
         
       let regex = /(\w+)\s\w+/; 

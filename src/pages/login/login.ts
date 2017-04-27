@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, Platform, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, LoadingController } from 'ionic-angular';
 import { AuthService } from "../../providers/auth-service";
 import { Alerts } from "../../providers/alerts";
 import { UserService } from "../../providers/user-service";
@@ -30,7 +30,7 @@ export class Login {
     });
     loadMessage.present(); 
 
-    this.auth.loginWithFacebook().subscribe((success) => { 
+      this.auth.loginWithFacebook().subscribe((success) => { 
         
       this.user.addUserToDatabase(); 
 

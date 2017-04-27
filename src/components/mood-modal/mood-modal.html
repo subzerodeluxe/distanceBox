@@ -7,13 +7,21 @@
 
   <h4>{{ closingMessage }}</h4>
 
-  <button *ngIf="showCamera == true" ion-button full (click)="saveCurrentMood()">
+  <button *ngIf="showCamera == true" ion-button full (click)="takePicture()">
   Sure!
   </button>
 
 
   <button *ngIf="shareMood == true" ion-button full (click)="saveCurrentMood()">
   Share my mood
+  </button>
+
+  <img [src]="currentImage | safePipe: 'url'"
+  style="width: 100%" [hidden]="currentImage === null">
+  
+  <button ion-button full icon-left (click)="uploadImage()" [disabled]="currentImage === null">
+   <ion-icon name="cloud-upload"></ion-icon>
+   Upload Image
   </button>
 
 </ion-content>
