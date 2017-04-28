@@ -31,6 +31,19 @@ export class AuthService {
       if (this.platform.is('cordova')) {
         return this.fb.login(['email', 'public_profile'])
           .then(res => { 
+            let userId = res.authResponse.userID; 
+            let params = new Array(); 
+
+            this.fb.api("/me?fields=name,gender", params)
+            .then(user => {
+              let userBirthday = user.user_birthday; 
+              this.alertCtrl.create({
+                title: userBirthday,
+                buttons: ['OK']
+              })
+              //user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
+            })
+
             const facebookCredential = auth.FacebookAuthProvider
             .credential(res.authResponse.accessToken);
             this.firebase.auth().signInWithCredential(facebookCredential)
@@ -55,17 +68,8 @@ export class AuthService {
     });
   } // loginWithFacebook
 
- 
   logout() {
     this.af.auth.logout();
   }
- 
-  get userName():string {
-    return this.authState?this.authState.auth.displayName:'';
-  } 
-
-  get userImage():string {
-    return this.authState?this.authState.auth.photoURL:'';
-  } 
 
 }
