@@ -72,4 +72,12 @@ export class AuthService {
     this.af.auth.logout();
   }
 
+  get userName():string {
+    return this.authState?this.authState.auth.displayName:'';
+  } 
+
+  get userImage():string {
+    return this.authState?this.authState.auth.photoURL:'';
+  } 
+
 }

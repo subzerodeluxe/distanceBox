@@ -1,1 +1,56 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="nav">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title center>Menu</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content color="bgLight" padding scrollbar-y-auto>
+        
+         <ion-list>
+            <ion-item>
+            <ion-avatar item-left>
+                <img *ngIf="auth.authState" src="{{auth.userImage}}">
+            </ion-avatar>
+            <h2 *ngIf="auth.authState">{{auth.userName}}</h2>
+            </ion-item>  
+        </ion-list>
+
+        <ion-list>
+            <button
+                ion-item
+                (click)="loadPage(dashboard)">
+                Dashboard
+            </button> 
+
+            <button
+                ion-item
+                (click)="loadPage(profile)">
+                (Profile)  
+            </button>
+
+              <button
+                ion-item
+                (click)="logOutUser()">
+                Logout  
+            </button>
+        </ion-list>
+    </ion-content>
+
+    <ion-footer>
+        <div class="time">{{ correctTime }}</div>
+        <div class="date">{{ correctDate }}</div>
+        <ion-list>
+            <ion-item>
+            <ion-label>Choose city</ion-label>
+            <ion-select 
+                (ionChange)="cityChange($event)">
+                <ion-option value="Asia/Jakarta">Yogja</ion-option>
+                <ion-option value="Europe/Amsterdam">Tilburg</ion-option>
+            </ion-select>
+            </ion-item>
+        </ion-list>
+    </ion-footer>
+</ion-menu>
+
+<ion-nav [root]="dashboard" #nav></ion-nav>

@@ -1,4 +1,14 @@
-<ion-content padding  scrollbar-y-auto>
+<ion-header>
+    <ion-navbar color="bgLight">
+        <ion-buttons start>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding scrollbar-y-auto color="bgLight">
 
     <div class="welcome-box">
         <h2 *ngIf="userName">Hi {{ userName }} </h2>
@@ -14,12 +24,5 @@
         </div>
     </div>
 
-    <p class="date-box"> {{ date | formatDate }} </p>
-
-
-
+    <p class="date-box"> {{ date | formatDate }} </p>   
 </ion-content>
-
-<ion-footer>
-    <button ion-button full (click)="logOutUser()">Logout</button>
-</ion-footer>

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, NavController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Camera } from '@ionic-native/camera';
@@ -16,6 +16,9 @@ import { UserService } from "../providers/user-service";
 import { MoodModal } from "../components/mood-modal/mood-modal";
 import { StorageService } from "../providers/storage-service";
 import { SafePipe } from "../pipes/safe-pipe";
+import { Login } from "../pages/login/login";
+import { Dashboard } from "../pages/dashboard/dashboard";
+import { FormatDate } from "../pipes/format-date";
 
 // setup Firebase credentials
 export const firebaseConfig = {
@@ -28,7 +31,7 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    DistanceBox, 
+    DistanceBox, // name of app 
     MoodModal,
     SafePipe
   ],
@@ -44,8 +47,8 @@ export const firebaseConfig = {
   ],
   providers: [
     StatusBar,
-    SplashScreen,
-    Camera, 
+    SplashScreen, 
+    Camera,  
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService, TimezoneService, WeatherService,
     Alerts, Facebook, UserService, StorageService 

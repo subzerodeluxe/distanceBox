@@ -1,6 +1,9 @@
 .ios, .md {
     
     page-dashboard {
+
+        background-color: color($colors, bgDark);
+
         .welcome-box {
             padding-top: 20px; 
             margin: auto;
@@ -30,5 +33,6 @@
             font-weight: bold; 
             font-size: 1.3em; 
         }
+        
     }
 } 

@@ -26,9 +26,6 @@ export class Dashboard {
         
       let regex = /(\w+)\s\w+/; 
       this.userName = regex.exec(user.displayName)[1];
-
-      console.log("Dit is username " + this.userName); 
-
     }) 
    } 
 
@@ -38,11 +35,6 @@ export class Dashboard {
    }
    hideMoodBox() {
      this.showMoodBox = false; 
-   }
-
-   logOutUser() {
-     this.auth.logout();
-     this.navCtrl.setRoot('login'); 
    }
 
    loadMoodRate() {
