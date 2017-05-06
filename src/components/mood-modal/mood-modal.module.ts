@@ -12,7 +12,8 @@ import { SafePipe } from "../../pipes/safe-pipe";
     IonicPageModule.forChild(MoodModal),
   ],
   exports: [
-    MoodModal
+    MoodModal,
+    SafePipe
   ]
 })
 export class MoodModalModule {}

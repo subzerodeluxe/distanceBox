@@ -11,7 +11,7 @@ export class StorageService {
 
   constructor() { }
 
-    uploadImage(img) {
+  uploadImage(img) {
     var d = new Date(),
       n = d.getTime(),
       fileName = n + ".jpg";

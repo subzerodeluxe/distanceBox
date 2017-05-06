@@ -17,7 +17,7 @@ import { MoodModal } from "../components/mood-modal/mood-modal";
 import { StorageService } from "../providers/storage-service";
 import { SafePipe } from "../pipes/safe-pipe";
 
-// setup Firebase credentials 
+// setup Firebase credentials
 export const firebaseConfig = {
     apiKey: "AIzaSyB9j6apbWkYb02Qjr8C4SPdZWO_lRC_WWg",
     authDomain: "distancebox.firebaseapp.com",
