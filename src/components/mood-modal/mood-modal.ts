@@ -32,7 +32,7 @@ export class MoodModal {
  }
 
   ngOnInit() {
-    if(this.moodRating >= 50) {
+    if(this.moodRating >= 55) {
       this.welcomeMessage = "Good to hear!"; 
       this.closingMessage = "Want to share your smile?"; 
       this.showCamera = true; 

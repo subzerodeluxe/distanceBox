@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { FirebaseApp, AngularFire, FirebaseAuthState } from 'angularfire2'; 
 import { AuthService } from "../providers/auth-service";
+import { NativeStorage } from "@ionic-native/native-storage";
 
 @Component({
   templateUrl: 'app.html'
@@ -24,7 +25,7 @@ export class DistanceBox {
   public onAuth: EventEmitter<FirebaseAuthState> = new EventEmitter();
   
   constructor(platform: Platform,  @Inject(FirebaseApp)firebase: any,
-  statusBar: StatusBar, splashScreen: SplashScreen, 
+  statusBar: StatusBar, splashScreen: SplashScreen, private nativeStorage: NativeStorage, 
   public menuCtrl: MenuController, private af: AngularFire, public auth: AuthService) {
     this.firebase = this.firebase; 
 
@@ -65,6 +66,7 @@ export class DistanceBox {
   logOutUser() :void {
      this.auth.logout();
      this.menuCtrl.close();
+     this.nativeStorage.remove('user');  // remove user from nativestorage
      this.navCtrl.setRoot(this.login); 
   }
 }

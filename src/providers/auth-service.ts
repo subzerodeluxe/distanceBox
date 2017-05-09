@@ -4,6 +4,7 @@ import { Platform, AlertController } from 'ionic-angular';
 
 import { AuthProviders, AngularFire, FirebaseAuthState, AuthMethods, FirebaseApp } from 'angularfire2'; //Add FirebaseApp 
 import { Facebook } from '@ionic-native/facebook';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { auth } from 'firebase';
 import { UserService } from "./user-service";
 
@@ -16,7 +17,8 @@ export class AuthService {
    
    constructor(private alertCtrl: AlertController, 
    private af: AngularFire, @Inject(FirebaseApp)firebase: any,
-   private platform: Platform, private fb: Facebook, private user: UserService) { 
+   private platform: Platform, private fb: Facebook, private user: UserService,
+   private nativeStorage: NativeStorage) { 
     this.firebase = firebase; 
     
     this.af.auth.subscribe((state: FirebaseAuthState) => {
@@ -29,30 +31,33 @@ export class AuthService {
   loginWithFacebook() {
     return Observable.create(observer => {
       if (this.platform.is('cordova')) {
-        return this.fb.login(['email', 'public_profile'])
+
+        return this.fb.login(['email', 'public_profile', 'user_birthday'])
           .then(res => { 
             let userId = res.authResponse.userID; 
             let params = new Array(); 
 
-            this.fb.api("/me?fields=name,gender", params)
-            .then(user => {
-              let userBirthday = user.user_birthday; 
-              this.alertCtrl.create({
-                title: userBirthday,
-                buttons: ['OK']
+            this.fb.api("/me?fields=name,gender,birthday", params)
+              .then(user => {
+               
+                // add to nativestorage 
+                this.nativeStorage.setItem('user', {
+                    name: user.name,
+                    gender: user.gender,
+                    birthday: user.birthday
+                  })
               })
-              //user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
-            })
 
-            const facebookCredential = auth.FacebookAuthProvider
-            .credential(res.authResponse.accessToken);
+            const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+
+            // signin firebase auth
             this.firebase.auth().signInWithCredential(facebookCredential)
-            .then(result => {
-              observer.next();
-          })
-          .catch(error => {
-            observer.error(error);
-          });
+              .then(result => {
+                observer.next();
+              })
+              .catch(error => {
+                observer.error(error);
+              });
         });
       } else {
         return this.af.auth.login({
@@ -71,13 +76,5 @@ export class AuthService {
   logout() {
     this.af.auth.logout();
   }
-
-  get userName():string {
-    return this.authState?this.authState.auth.displayName:'';
-  } 
-
-  get userImage():string {
-    return this.authState?this.authState.auth.photoURL:'';
-  } 
 
 }
