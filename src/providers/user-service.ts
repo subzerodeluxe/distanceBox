@@ -39,7 +39,7 @@ export class UserService {
       let uid = user.uid; 
   
     let currentUserRef = this.af.database.object(`/users/${uid}`);  
-    currentUserRef.set({name: displayName, displayName: displayName, email: email, gender: uid, birthday: uid});
+    currentUserRef.set({name: displayName, displayName: this.name, email: email, gender: this.gender, birthday: this.birthday});
 }
 
   addUserToDatabase() {
