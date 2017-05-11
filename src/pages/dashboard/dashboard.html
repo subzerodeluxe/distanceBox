@@ -14,12 +14,14 @@
         <h2 *ngIf="userName">Hi {{ userName }} </h2>
     </div>
 
-    <div *ngIf="showMoodBox" class="mood-box">
+    <div class="mood-box"
+        [ngClass]="{'fadeOut': !showMoodBox}">
         <p>How are you today?</p>
         <p>Feel like sharing your mood?</p>
 
         <div class="mood-button">
-            <button ion-button (click)="loadMoodRate()">Yes</button>
+            <button ion-button [ngClass]="{'slide-big': shakeButton}" 
+            (click)="loadMoodRate()">Yes</button>
             <button ion-button (click)="hideMoodBox()">No</button>
         </div>
     </div>

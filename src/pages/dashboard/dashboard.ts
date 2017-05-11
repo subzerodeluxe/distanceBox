@@ -17,6 +17,7 @@ export class Dashboard {
 
   userName: string;
   showMoodBox: boolean = true; 
+  shakeButton: boolean = true; 
   date: any; 
 
   constructor(public navCtrl: NavController, 

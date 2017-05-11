@@ -33,6 +33,29 @@
             font-weight: bold; 
             font-size: 1.3em; 
         }
+
+        .fadeOut {
+            transition: all 0.5s linear; 
+            opacity: 0;  
+        }
+
+         @-webkit-keyframes slideBig {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+              transform: scale(1); 
+            }
+         }
+
+         .slide-big {
+             animation-name: slideBig;
+             animation-duration: 2.1s; 
+             animation-iteration-count: infinite;
+         }
         
     }
 } 
