@@ -42,7 +42,7 @@ export class DistanceBox {
       } else {
         console.log(user); 
         this.isAuthenticated = false; 
-        this.navCtrl.setRoot(this.login);  
+        this.navCtrl.setRoot('onboarding');  
       }
     })
 

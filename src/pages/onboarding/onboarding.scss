@@ -1,0 +1,51 @@
+.ios, .md {
+    page-onboarding {
+        
+        ion-content {
+            background-image: url('../assets/img/onboarding_bg.png');
+        }
+        p, h2 {
+            color: #fff; 
+        }
+
+        .title-box {
+            margin-top: 235px; 
+            display: block;
+        }
+
+        .title-box #bottom {
+            font-weight: 700; 
+            font-size: 3.1rem; 
+        }
+
+        .title-box #top {
+            font-weight: 300; 
+            font-size: 2.7rem; 
+        }
+
+
+        .bottom-title {
+            padding-top: 200px;
+            font-size: 1.5rem;  
+        }
+
+        // Animations
+        @-webkit-keyframes slideBig {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+              transform: scale(1); 
+            }
+         }
+
+         .slide-big {
+             animation-name: slideBig;
+             animation-duration: 2.1s; 
+             animation-iteration-count: infinite;
+         }
+    }
+}
