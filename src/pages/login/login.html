@@ -1,9 +1,23 @@
 <ion-content padding  scrollbar-y-auto>
-    <ion-row> 
+    
+    
+    
+    <h2 id="logo">Distance Box</h2>
+  
+    <div padding-left class="intro">
+        <p><span id="great">Almost there!</span><br>
+        Please sign in with your
+            Facebook account to<br>
+            setup your box!</p>
+    </div>
+
+    <div text-center>
         <button 
+            color="colorWhite" 
             (click)="loginWithFacebook()" 
-            ion-button block>
+            ion-button outline>
             Login with Facebook 
         </button> 
-    </ion-row>
+    </div>
+
 </ion-content>

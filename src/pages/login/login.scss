@@ -1,6 +1,33 @@
 .ios, .md {
     page-login {
-    
+        
+        ion-content {
+            background-image: url('../assets/img/login_bg.png');
+        }
+
+        p, h2 {
+            color: #fff; 
+        }
+
+        #logo {
+            margin-top: 175px; 
+            font-weight: 700; 
+            font-size: 3.1rem; 
+            text-align: center; 
+        }
+
+        .intro {
+            padding-top: 20px; 
+        }
+
+        #great {
+            font-size: 1.6rem; 
+            font-weight: 700; 
+        }
+
+        div {
+            padding-top: 25px; 
+        }
+        
     }
 }
-

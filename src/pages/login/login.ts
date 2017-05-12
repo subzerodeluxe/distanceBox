@@ -29,17 +29,14 @@ export class Login {
       content: "Signing you in ..." 
     });
     loadMessage.present(); 
-
+    
       this.auth.loginWithFacebook().subscribe((success) => { 
-        
-      this.user.addUserToDatabase(); 
-
-      loadMessage.dismiss(); 
-      this.navCtrl.setRoot('dashboard');  
-    }, err => {
-      loadMessage.dismiss();
-      let message = this.alert.showAlertMessage("Bad connection?", "Could not sign you in! Try again", "OK");
-      message.present(); 
+        loadMessage.dismiss(); 
+        this.navCtrl.setRoot('dashboard');  
+      }, err => {
+        loadMessage.dismiss();
+        let message = this.alert.showAlertMessage("Bad connection?", "Could not sign you in! Try again", "OK");
+        message.present(); 
     });
   } // loginWithFacebook
 }
