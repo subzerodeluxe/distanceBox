@@ -36,6 +36,9 @@ export class AuthService {
             const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
             this.firebase.auth().signInWithCredential(facebookCredential)
               .then(() => {
+                // nu kan ik token pakken --> doorgeven aan cloud function? 
+                
+
                 observer.next();
               })
               .catch(error => {

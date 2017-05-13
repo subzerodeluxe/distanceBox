@@ -1,8 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 
 import { FirebaseApp } from "angularfire2";
 import { AuthService } from "../../providers/auth-service";
+import { CountdownComponent } from "../../components/countdown/countdown";
 
 @IonicPage({
   name: 'dashboard'
@@ -15,10 +16,14 @@ import { AuthService } from "../../providers/auth-service";
 
 export class Dashboard {
 
+  @ViewChild(CountdownComponent) countdown: CountdownComponent;
+  
   userName: string;
   showMoodBox: boolean = true; 
   shakeButton: boolean = true; 
   date: any; 
+  inputSeconds: number; 
+  inputDate: any; 
 
   constructor(public navCtrl: NavController, 
   public auth: AuthService,
@@ -34,6 +39,7 @@ export class Dashboard {
      this.date = new Date(); 
 
    }
+
    hideMoodBox() {
      this.showMoodBox = false; 
    }

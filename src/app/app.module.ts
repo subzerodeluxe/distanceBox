@@ -19,7 +19,6 @@ import { SafePipe } from "../pipes/safe-pipe";
 import { Login } from "../pages/login/login";
 import { Dashboard } from "../pages/dashboard/dashboard";
 import { FormatDate } from "../pipes/format-date";
-import { NativeStorage } from "@ionic-native/native-storage";
 
 // setup Firebase credentials
 export const firebaseConfig = {
@@ -50,7 +49,6 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen, 
     Camera,  
-    NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService, TimezoneService, WeatherService,
     Alerts, Facebook, UserService, StorageService 
