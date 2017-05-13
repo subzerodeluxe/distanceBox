@@ -29,6 +29,12 @@
                 (Profile)  
             </button>
 
+             <button
+                ion-item
+                (click)="loadPage('words')">
+                Learn Words  
+            </button>
+
               <button
                 ion-item
                 (click)="logOutUser()">
@@ -38,8 +44,7 @@
     </ion-content>
 
     <ion-footer>
-        <div class="time">{{ correctTime }}</div>
-        <div class="date">{{ correctDate }}</div>
+        <div class="date">City is {{ correctCity }}</div>
         <ion-list>
             <ion-item>
             <ion-label>Choose city</ion-label>
@@ -53,4 +58,4 @@
     </ion-footer>
 </ion-menu>
 
-<ion-nav [root]="dashboard" #nav></ion-nav>
+<ion-nav [root]="profile" #nav></ion-nav>

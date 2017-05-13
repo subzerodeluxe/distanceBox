@@ -1,5 +1,5 @@
 import { Component, ViewChild, Inject, EventEmitter } from '@angular/core';
-import { Platform, NavController, MenuController, Toggle } from 'ionic-angular';
+import { Platform, NavController, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -14,12 +14,11 @@ export class DistanceBox {
   
   @ViewChild('nav') navCtrl: NavController; 
  
-  correctDate: any; 
-  correctTime: any; 
-
   private authState: FirebaseAuthState;
   public onAuth: EventEmitter<FirebaseAuthState> = new EventEmitter();
   public firebase : any;
+
+  correctCity: string; 
 
   constructor(platform: Platform,  
   @Inject(FirebaseApp)firebase: any,
@@ -34,7 +33,7 @@ export class DistanceBox {
 
     firebase.auth().onAuthStateChanged(user => {
       if(user) { // when user is authenticated 
-        this.navCtrl.setRoot('dashboard');
+        this.navCtrl.setRoot('profile');
       } else {
         this.navCtrl.setRoot('onboarding'); 
       }
@@ -47,8 +46,8 @@ export class DistanceBox {
     });
   }
 
-  toggleClock(toggle: Toggle) {
-
+  cityChange(city) {
+    this.correctCity = city; 
   }
 
   loadPage(page: any) {

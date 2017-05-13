@@ -23,6 +23,7 @@ export class CountdownComponent {
 
         this.countdown = <ICountdown> {  
           daysLeft: this.daysLeft, 
+          departureDate: "August 28th 2017", 
           year: "2017", 
           month: "8",
           day: "28",

@@ -71,4 +71,8 @@ export class AuthService {
     return this.authState?this.authState.auth.photoURL:'';
   } 
 
+  get userEmail():string {
+    return this.authState?this.authState.auth.email:'';
+  }
+
 }

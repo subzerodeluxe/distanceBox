@@ -1,22 +1,58 @@
-<ion-header>
-    <ion-navbar>
-        <ion-buttons start>
-            <button ion-button icon-only menuToggle>
-                <ion-icon name="menu"></ion-icon>
-            </button>
-        </ion-buttons>
-    </ion-navbar>
-</ion-header>
-
-
 <ion-content padding scrollbar-y-auto>
-  <p text-center>Check your details</p>
+    <div padding-left class="intro">
+        <p><span class="big">Woo-hoo!</span> your box is good to go.</p>
+        <p>Please check your profile details and<br>fill in the blanks.</p>
+    </div>
 
-  <ul>
-      <li>Name</li>
-      <li>Birthday</li>
-      <li>Email</li>
-      <li>Gender</li>
-      <li>Photo</li>
-  </ul>
+
+    <div text-center class="profile-box">
+       <img class="profile-image" *ngIf="auth.authState" 
+       src="{{auth.userImage}}"> 
+        
+        
+        <form [formGroup]="userForm" (ngSubmit)="editUser()">
+            <ion-list class="item item-trns">
+                <ion-item class="item item-trns">
+                    <ion-label>{{auth.userName}}</ion-label>
+                    <!--<ion-input formControlName="username" type="text" placeholder="{{auth.userName}}"></ion-input>-->
+                    <ion-icon name="checkmark" item-right></ion-icon>
+                </ion-item>
+
+                <ion-item class="item item-trns">
+                    <ion-label>{{auth.userEmail}}</ion-label>
+                    <!--<ion-input formControlName="email" type="text" placeholder="{{auth.userEmail}}"></ion-input>-->
+                    <ion-icon name="checkmark" item-right></ion-icon>
+                </ion-item>
+
+                <ion-item class="item item-trns">
+                    <ion-label class="item item-trns">Birthday:</ion-label>
+                    <ion-input formControlName="birthday" type="date"></ion-input>
+                    <ion-icon name="checkmark" item-right></ion-icon>
+                </ion-item>
+            </ion-list>
+            <button ion-button type="submit" [disabled]="!userForm.valid">Update</button>
+        </form> 
+    </div>
 </ion-content>
+
+<ion-footer>
+    <ion-row padding-left>
+        <ion-col width-50>
+            <button 
+            color="colorWhite" 
+            (click)="signOut()" 
+            ion-button outline>
+            Sign out  
+        </button>     
+        </ion-col>
+
+        <ion-col width-50>
+            <button 
+            color="colorWhite" 
+            (click)="skipPage()" 
+            ion-button outline>
+            Not now 
+        </button> 
+        </ion-col>
+  </ion-row>
+</ion-footer>
