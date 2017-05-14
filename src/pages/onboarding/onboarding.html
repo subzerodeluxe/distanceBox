@@ -1,17 +1,17 @@
 <ion-content padding scrollbar-y-auto>
+    <div class="details">
+        <div padding-left class="title-box">
+            <h2><span id="top">Welcome to</span><br>
+            <span id="bottom">Distance Box</span></h2>
+        </div>
 
+        <div padding-left class="intro">
+            <p>Stay connected to your friends and loved ones<br>
+            and share your experiences with them</p>
+        </div>
 
-<div padding-left class="title-box">
-    <h2><span id="top">Welcome to</span><br>
-    <span id="bottom">Distance Box</span></h2>
-</div>
-
-<div padding-left class="intro">
-    <p>Stay connected to your friends and loved ones<br>
-    and share your experiences with them</p>
-</div>
-
-<p text-center class="bottom-title" 
-[ngClass]="{'slide-big': shakeButton}" 
-(click)="loadLoginPage()">Open my Box</p>
+        <p text-center class="bottom-title" 
+        [ngClass]="{'slide-big': shakeButton}" 
+        (click)="loadLoginPage()">Open my Box</p>
+    </div>
 </ion-content>

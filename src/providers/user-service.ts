@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFire, FirebaseObjectObservable } from "angularfire2";
 import { Storage } from '@ionic/storage';
@@ -7,22 +7,23 @@ import { Storage } from '@ionic/storage';
 export class UserService {
 
   user: FirebaseObjectObservable<any>;
+  uid: string; 
 
   constructor(public af: AngularFire, public storage: Storage) { 
-    let uid = this.getUid();  
-    console.log("This is UID " + uid); 
-    this.user = this.af.database.object(`/users/${uid}`);
+     this.storage.get('uid').then((data) => {
+      if(data != null) {
+        this.uid = data; 
+        console.log("User ID " + data)
+      } else {
+        console.log("No data"); 
+      }
+    }) 
   } 
-
   
-  getUid() {
-    return this.storage.get('uid');
-  }
-  
-
   editUserProfile(userObject) { 
-    this.user.update({
+    this.user = this.af.database.object(`/users/${this.uid}/birthday`);
+    this.user.set({
       birthday: userObject.birthday   
-      }).then(_ => console.log('set!'));
+    }).then(_ => console.log('set birthday in Firebase --> check!'));
   }  
 }

@@ -29,10 +29,10 @@ export class Login {
       content: "Signing you in ..." 
     });
     loadMessage.present(); 
-    
+  
       this.auth.loginWithFacebook().subscribe((success) => { 
         loadMessage.dismiss(); 
-        this.navCtrl.setRoot('dashboard');  
+        this.navCtrl.setRoot('profile');  
       }, err => {
         loadMessage.dismiss();
         let message = this.alert.showAlertMessage("Bad connection?", "Could not sign you in! Try again", "OK");

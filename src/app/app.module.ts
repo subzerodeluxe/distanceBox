@@ -50,7 +50,7 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen, 
-    Camera,  
+    Camera, 
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService, TimezoneService, WeatherService,
     Alerts, Facebook, UserService, StorageService 

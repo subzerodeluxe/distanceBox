@@ -27,11 +27,10 @@
                 <ion-item class="item item-trns">
                     <ion-label class="item item-trns">Birthday:</ion-label>
                     <ion-input formControlName="birthday" type="date"></ion-input>
-                    <ion-icon name="checkmark" item-right></ion-icon>
                 </ion-item>
                 
             </ion-list>
-            <button ion-button type="submit" (click)="updateProfile()"[disabled]="!userForm.valid">Update</button>
+            <button ion-button color="colorWhite" type="submit" (click)="updateProfile()"[disabled]="!userForm.valid">Update</button>
         </form> 
     </div>
 </ion-content>

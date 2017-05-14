@@ -32,7 +32,7 @@ export class AuthService {
     return Observable.create(observer => {
       if (this.platform.is('cordova')) {
 
-        return this.fb.login(['email', 'public_profile', 'user_birthday'])
+        return this.fb.login(['email', 'public_profile'])
           .then(res => { 
             const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
             this.firebase.auth().signInWithCredential(facebookCredential)
@@ -50,6 +50,8 @@ export class AuthService {
           method: AuthMethods.Popup
         }).then(result => {
             //console.log("Dit is het result hoor " + JSON.stringify(result)); 
+            this.storage.set('uid', result.uid);
+                console.log("storage set " + result.uid);
             observer.next();
           }).catch(error => {
             observer.error(error);
@@ -60,6 +62,8 @@ export class AuthService {
 
   logout() {
     this.af.auth.logout();
+    this.storage.remove('uid');
+    console.log("Removed stored UID");
   }
 
   get userName():string {

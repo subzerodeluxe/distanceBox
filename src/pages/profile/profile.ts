@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../providers/auth-service";
 import { UserService } from "../../providers/user-service";
+import { Storage } from '@ionic/storage';
+import { Alerts } from "../../providers/alerts";
 
 
 @IonicPage({
@@ -17,8 +19,8 @@ export class Profile implements OnInit {
 
    userForm: FormGroup;
  
-  constructor(public navCtrl: NavController, public user: UserService, 
-  public navParams: NavParams, public fb: FormBuilder, public auth: AuthService) {
+  constructor(public navCtrl: NavController, public storage: Storage, public user: UserService, 
+  public navParams: NavParams, public alert: Alerts, public fb: FormBuilder, public auth: AuthService) {
    
   }
 
@@ -31,6 +33,9 @@ export class Profile implements OnInit {
    updateProfile() {
      console.log("User object " + JSON.stringify(this.userForm.value)); 
      this.user.editUserProfile(this.userForm.value);
+     this.alert.presentToast("Awesome! Your profile is now complete!");
+     this.navCtrl.setRoot('dashboard'); 
+
    }
 
   skipPage() {
