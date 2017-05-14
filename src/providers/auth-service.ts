@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter, Inject} from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { Platform, AlertController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { AuthProviders, AngularFire, FirebaseAuthState, AuthMethods, FirebaseApp } from 'angularfire2'; //Add FirebaseApp 
 import { Facebook } from '@ionic-native/facebook';
@@ -15,7 +16,7 @@ export class AuthService {
   public firebase : any;
    
    constructor(private alertCtrl: AlertController, 
-   private af: AngularFire, @Inject(FirebaseApp)firebase: any,
+   private af: AngularFire, @Inject(FirebaseApp)firebase: any, public storage: Storage,
    private platform: Platform, private fb: Facebook, private user: UserService,
 ) { 
     this.firebase = firebase; 
@@ -35,10 +36,8 @@ export class AuthService {
           .then(res => { 
             const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
             this.firebase.auth().signInWithCredential(facebookCredential)
-              .then(() => {
-                // nu kan ik token pakken --> doorgeven aan cloud function? 
-                
-
+              .then(data => {
+                this.storage.set('uid', data.uid);
                 observer.next();
               })
               .catch(error => {

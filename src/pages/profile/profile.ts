@@ -16,9 +16,7 @@ import { UserService } from "../../providers/user-service";
 export class Profile implements OnInit {
 
    userForm: FormGroup;
-   error = false;
-   errorMessage = '';
-
+ 
   constructor(public navCtrl: NavController, public user: UserService, 
   public navParams: NavParams, public fb: FormBuilder, public auth: AuthService) {
    
@@ -30,8 +28,8 @@ export class Profile implements OnInit {
        });
    }
 
-   editUser() {
-     console.log(this.userForm.value); 
+   updateProfile() {
+     console.log("User object " + JSON.stringify(this.userForm.value)); 
      this.user.editUserProfile(this.userForm.value);
    }
 

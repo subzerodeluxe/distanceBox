@@ -10,7 +10,7 @@
        src="{{auth.userImage}}"> 
         
         
-        <form [formGroup]="userForm" (ngSubmit)="editUser()">
+        <form [formGroup]="userForm">
             <ion-list class="item item-trns">
                 <ion-item class="item item-trns">
                     <ion-label>{{auth.userName}}</ion-label>
@@ -29,8 +29,9 @@
                     <ion-input formControlName="birthday" type="date"></ion-input>
                     <ion-icon name="checkmark" item-right></ion-icon>
                 </ion-item>
+                
             </ion-list>
-            <button ion-button type="submit" [disabled]="!userForm.valid">Update</button>
+            <button ion-button type="submit" (click)="updateProfile()"[disabled]="!userForm.valid">Update</button>
         </form> 
     </div>
 </ion-content>

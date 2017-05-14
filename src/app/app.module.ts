@@ -19,6 +19,7 @@ import { SafePipe } from "../pipes/safe-pipe";
 import { Login } from "../pages/login/login";
 import { Dashboard } from "../pages/dashboard/dashboard";
 import { FormatDate } from "../pipes/format-date";
+import { IonicStorageModule } from '@ionic/storage';
 
 // setup Firebase credentials
 export const firebaseConfig = {
@@ -38,7 +39,8 @@ export const firebaseConfig = {
   imports: [
     BrowserModule,
     IonicModule.forRoot(DistanceBox),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

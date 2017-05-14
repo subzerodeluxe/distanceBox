@@ -15,7 +15,7 @@ import { UserService } from "../../providers/user-service";
 
 export class Login {
   
- loggedIn: boolean = false;
+  loggedIn: boolean = false;
 
   constructor(public navCtrl: NavController, 
    public auth: AuthService, public alert: Alerts, 
