@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ICountdown } from "../../models/i-countdown";
+import { ICountdown } from "../../models/countdown.interface";
 
 
 @Component({

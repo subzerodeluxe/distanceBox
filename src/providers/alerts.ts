@@ -20,7 +20,16 @@ export class Alerts {
       return alert; 
     }
 
-    presentToast(text) {
+    presentBottomToast(text) {
+        let toast = this.toastCtrl.create({
+            message: text,
+            duration: 3000,
+            position: 'bottom'
+            });
+        toast.present();
+    }
+
+      presentTopToast(text) {
         let toast = this.toastCtrl.create({
             message: text,
             duration: 3000,
@@ -28,5 +37,6 @@ export class Alerts {
             });
         toast.present();
     }
+
 
 }

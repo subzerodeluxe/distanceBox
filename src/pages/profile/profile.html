@@ -6,20 +6,20 @@
 
 
     <div text-center class="profile-box">
-       <img class="profile-image" *ngIf="auth.authState" 
+       <img class="profile-image" *ngIf="auth.userImage" 
        src="{{auth.userImage}}"> 
         
         
         <form [formGroup]="userForm">
             <ion-list class="item item-trns">
                 <ion-item class="item item-trns">
-                    <ion-label>{{auth.userName}}</ion-label>
+                    <ion-label *ngIf="auth.userName" >{{auth.userName}}</ion-label>
                     <!--<ion-input formControlName="username" type="text" placeholder="{{auth.userName}}"></ion-input>-->
                     <ion-icon name="checkmark" item-right></ion-icon>
                 </ion-item>
 
                 <ion-item class="item item-trns">
-                    <ion-label>{{auth.userEmail}}</ion-label>
+                    <ion-label *ngIf="auth.userEmail">{{auth.userEmail}}</ion-label>
                     <!--<ion-input formControlName="email" type="text" placeholder="{{auth.userEmail}}"></ion-input>-->
                     <ion-icon name="checkmark" item-right></ion-icon>
                 </ion-item>

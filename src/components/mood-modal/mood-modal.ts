@@ -61,7 +61,7 @@ export class MoodModal {
       this.currentImage = base64Image;
 
     }, (err) => {
-      this.alerts.presentToast("Could not take picture. Please try again!");
+      this.alerts.presentBottomToast("Could not take picture. Please try again!");
     });
   }
 
@@ -73,7 +73,7 @@ export class MoodModal {
   uploadImage() {
     
     this.storage.uploadImage(this.imageData).then(succ => {
-      this.alerts.presentToast("Upload Finished");
+      this.alerts.presentBottomToast("Upload Finished");
     });
   }
 

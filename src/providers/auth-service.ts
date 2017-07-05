@@ -4,7 +4,7 @@ import { Platform, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { AuthProviders, AngularFire, FirebaseAuthState, AuthMethods, FirebaseApp } from 'angularfire2'; //Add FirebaseApp 
-import { Facebook } from '@ionic-native/facebook';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { auth } from 'firebase';
 import { UserService } from "./user-service";
 
@@ -14,6 +14,7 @@ export class AuthService {
   private authState: FirebaseAuthState;
   public onAuth: EventEmitter<FirebaseAuthState> = new EventEmitter();
   public firebase : any;
+  public userData: any; 
    
    constructor(private alertCtrl: AlertController, 
    private af: AngularFire, @Inject(FirebaseApp)firebase: any, public storage: Storage,
@@ -26,14 +27,20 @@ export class AuthService {
       this.onAuth.emit(state);
     });
   }
-
-
+  
+  
   loginWithFacebook() {
     return Observable.create(observer => {
       if (this.platform.is('cordova')) {
 
         return this.fb.login(['email', 'public_profile'])
-          .then(res => { 
+          .then((res: FacebookLoginResponse) => { 
+            
+             this.fb.api('me?fields=id,name,email,first_name,birthday)', []).then(profile => {
+              this.userData = { email: profile['email'], first_name: profile['first_name'], 
+              username: profile['name'], birthday: profile['birthday']}
+              }); 
+
             const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
             this.firebase.auth().signInWithCredential(facebookCredential)
               .then(data => {
@@ -76,6 +83,10 @@ export class AuthService {
 
   get userEmail():string {
     return this.authState?this.authState.auth.email:'';
+  }
+
+  get userBirthday():string {
+    return this.userData.birthday; 
   }
 
 }
