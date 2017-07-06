@@ -3,7 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { Platform, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-import { AuthProviders, AngularFire, FirebaseAuthState, AuthMethods, FirebaseApp } from 'angularfire2'; //Add FirebaseApp 
+import { AuthProviders, AngularFire, FirebaseAuthState, AuthMethods, FirebaseApp, FirebaseObjectObservable } from 'angularfire2'; //Add FirebaseApp 
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { auth } from 'firebase';
 import { UserService } from "./user-service";
@@ -15,10 +15,13 @@ export class AuthService {
   public onAuth: EventEmitter<FirebaseAuthState> = new EventEmitter();
   public firebase : any;
   public userData: any; 
+  public uid: string;
+
+  user: FirebaseObjectObservable<any>;
    
    constructor(private alertCtrl: AlertController, 
    private af: AngularFire, @Inject(FirebaseApp)firebase: any, public storage: Storage,
-   private platform: Platform, private fb: Facebook, private user: UserService,
+   private platform: Platform, private fb: Facebook
 ) { 
     this.firebase = firebase; 
     
@@ -28,19 +31,12 @@ export class AuthService {
     });
   }
   
-  
   loginWithFacebook() {
     return Observable.create(observer => {
       if (this.platform.is('cordova')) {
 
         return this.fb.login(['email', 'public_profile'])
           .then((res: FacebookLoginResponse) => { 
-            
-             this.fb.api('me?fields=id,name,email,first_name,birthday)', []).then(profile => {
-              this.userData = { email: profile['email'], first_name: profile['first_name'], 
-              username: profile['name'], birthday: profile['birthday']}
-              }); 
-
             const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
             this.firebase.auth().signInWithCredential(facebookCredential)
               .then(data => {
@@ -56,9 +52,7 @@ export class AuthService {
           provider: AuthProviders.Facebook,
           method: AuthMethods.Popup
         }).then(result => {
-            //console.log("Dit is het result hoor " + JSON.stringify(result)); 
             this.storage.set('uid', result.uid);
-                console.log("storage set " + result.uid);
             observer.next();
           }).catch(error => {
             observer.error(error);
@@ -67,12 +61,14 @@ export class AuthService {
     });
   } // loginWithFacebook
 
+
   logout() {
     this.af.auth.logout();
-    this.storage.remove('uid');
-    console.log("Removed stored UID");
   }
 
+  get currentUser():string {
+    return this.authState?this.authState.auth.uid:''; 
+  }
   get userName():string {
     return this.authState?this.authState.auth.displayName:'';
   } 
@@ -84,9 +80,4 @@ export class AuthService {
   get userEmail():string {
     return this.authState?this.authState.auth.email:'';
   }
-
-  get userBirthday():string {
-    return this.userData.birthday; 
-  }
-
 }

@@ -9,7 +9,8 @@ exports.createUserProfile = functions.auth.user().onCreate(event => {
     admin.database().ref(`/users/${event.data.uid}`).set({
         name: event.data.displayName,
         email: event.data.email,
-        profileImage: event.data.photoURL, 
-        birthday: "unknown" 
+        profileImage: event.data.photoURL,
+        birthday: "not set" 
     }); 
 })
+

@@ -20,6 +20,7 @@ import { Login } from "../pages/login/login";
 import { Dashboard } from "../pages/dashboard/dashboard";
 import { FormatDate } from "../pipes/format-date";
 import { IonicStorageModule } from '@ionic/storage';
+import { DateValueAccessorModule } from 'angular-date-value-accessor';
 
 // setup Firebase credentials
 export const firebaseConfig = {
@@ -40,7 +41,8 @@ export const firebaseConfig = {
     BrowserModule,
     IonicModule.forRoot(DistanceBox),
     AngularFireModule.initializeApp(firebaseConfig),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    DateValueAccessorModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

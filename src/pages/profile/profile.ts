@@ -33,9 +33,9 @@ export class Profile implements OnInit {
    updateProfile() {
      console.log("User object " + JSON.stringify(this.userForm.value)); 
      this.user.editUserProfile(this.userForm.value);
+    
      this.alert.presentBottomToast("Awesome! Your profile is now complete!");
      this.navCtrl.setRoot('dashboard'); 
-
    }
 
   skipPage() {

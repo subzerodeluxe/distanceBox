@@ -35,7 +35,7 @@ export class Login {
         this.navCtrl.setRoot('profile');  
       }, err => {
         loadMessage.dismiss();
-        let message = this.alert.showAlertMessage("Bad connection?", "Could not sign you in! Try again", "OK");
+        let message = this.alert.showAlertMessage("Bad connection?", err, "OK");
         message.present(); 
     });
   } // loginWithFacebook
