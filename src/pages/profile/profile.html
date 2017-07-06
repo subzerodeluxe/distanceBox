@@ -25,33 +25,31 @@
                 <ion-item class="item item-trns">
                     <ion-label class="item item-trns">Birthday:</ion-label>
                     <ion-icon *ngIf="userForm.valid" name="checkmark" item-right></ion-icon>
-                    <ion-input formControlName="birthday" type="date" useValueAsDate></ion-input>
+                    <ion-input formControlName="birthday" type="date" useValueAsDate>dd/mm/yyyy</ion-input>
                 </ion-item>
                 
             </ion-list>
             <button ion-button color="colorWhite" type="submit" (click)="updateProfile()"[disabled]="!userForm.valid">Update</button>
         </form> 
     </div>
-</ion-content>
 
-<ion-footer>
-    <ion-row padding-left>
+
+    <ion-row class="navButtons">
         <ion-col width-50>
-            <button 
-            color="colorWhite" 
-            (click)="signOut()" 
-            ion-button outline>
-            Sign out  
-        </button>     
+           <button ion-button icon-start color="colorWhite" outline (click)="signOut()">
+                <ion-icon name="arrow-dropleft"></ion-icon>
+            Sign out 
+            </button> 
         </ion-col>
 
         <ion-col width-50>
-            <button 
-            color="colorWhite" 
-            (click)="skipPage()" 
-            ion-button outline>
-            Not now 
-        </button> 
+            <button ion-button icon-end  color="colorWhite" (click)="skipPage()" outline>
+ Not now
+  <ion-icon name="arrow-dropright"></ion-icon>
+</button>
+         
         </ion-col>
   </ion-row>
-</ion-footer>
+</ion-content>
+
+
