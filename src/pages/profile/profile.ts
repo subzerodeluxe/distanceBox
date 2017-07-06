@@ -18,10 +18,11 @@ import { Alerts } from "../../providers/alerts";
 export class Profile implements OnInit {
 
    userForm: FormGroup;
+   birthday: any; 
  
   constructor(public navCtrl: NavController, public storage: Storage, public user: UserService, 
   public navParams: NavParams, public alert: Alerts, public fb: FormBuilder, public auth: AuthService) {
-   
+    
   }
 
   ngOnInit():any {

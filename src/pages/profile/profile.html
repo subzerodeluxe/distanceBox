@@ -25,7 +25,7 @@
                 <ion-item class="item item-trns">
                     <ion-label class="item item-trns">Birthday:</ion-label>
                     <ion-icon *ngIf="userForm.valid" name="checkmark" item-right></ion-icon>
-                    <ion-input formControlName="birthday" type="date" useValueAsDate>dd/mm/yyyy</ion-input>
+                    <ion-datetime displayFormat="DD MMM YYYY" placeholder="dd/mmm/yyyy" formControlName="birthday"></ion-datetime>
                 </ion-item>
                 
             </ion-list>
@@ -44,10 +44,9 @@
 
         <ion-col width-50>
             <button ion-button icon-end  color="colorWhite" (click)="skipPage()" outline>
- Not now
-  <ion-icon name="arrow-dropright"></ion-icon>
-</button>
-         
+            Not now
+                <ion-icon name="arrow-dropright"></ion-icon>
+            </button>
         </ion-col>
   </ion-row>
 </ion-content>
