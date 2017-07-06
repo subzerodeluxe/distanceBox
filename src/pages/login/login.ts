@@ -32,7 +32,7 @@ export class Login {
   
       this.auth.loginWithFacebook().subscribe((success) => { 
         loadMessage.dismiss(); 
-        this.navCtrl.setRoot('profile');  
+        this.navCtrl.setRoot('credentials');  
       }, err => {
         loadMessage.dismiss();
         let message = this.alert.showAlertMessage("Bad connection?", err, "OK");

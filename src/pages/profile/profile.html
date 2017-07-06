@@ -1,54 +1,40 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
 <ion-content padding scrollbar-y-auto>
-    <div padding-left class="intro">
-        <p><span class="big">Woo-hoo!</span> your box is good to go.</p>
-        <p>Please check your profile details and<br>fill in the blanks.</p>
-    </div>
-
-
     <div text-center class="profile-box">
-       <img class="profile-image" *ngIf="auth.userImage" 
-       src="{{auth.userImage}}"> 
+       <img class="profile-image" *ngIf="profileData.profileImage" 
+       src="{{ profileData.profileImage }}"> 
         
         
         <form [formGroup]="userForm">
-            <ion-list class="item item-trns">
-                <ion-item class="item item-trns">
-                    <ion-label *ngIf="auth.userName" >{{auth.userName}}</ion-label>
-                    <ion-icon name="checkmark" item-right></ion-icon>
+            <ion-list class="item item-trns" >
+                <ion-item no-lines class="item item-trns">
+                    <ion-input *ngIf="profileData.name">{{ profileData.name | async | json }}</ion-input>
+                    <ion-icon *ngIf="userForm.valid" name="checkmark" item-right></ion-icon>
                 </ion-item>
 
-                <ion-item class="item item-trns">
-                    <ion-label *ngIf="auth.userEmail">{{auth.userEmail}}</ion-label> 
-                    <ion-icon name="checkmark" item-right></ion-icon>
+                <ion-item no-lines class="item item-trns">
+                    <ion-input *ngIf="profileData.email">{{ profileData.email }}</ion-input>
+                    <ion-icon *ngIf="userForm.valid" name="checkmark" item-right></ion-icon>
                 </ion-item>
 
-                <ion-item class="item item-trns">
+                <ion-item no-lines class="item item-trns">
                     <ion-label class="item item-trns">Birthday:</ion-label>
                     <ion-icon *ngIf="userForm.valid" name="checkmark" item-right></ion-icon>
                     <ion-datetime displayFormat="DD MMM YYYY" placeholder="dd/mmm/yyyy" formControlName="birthday"></ion-datetime>
                 </ion-item>
                 
             </ion-list>
-            <button ion-button color="colorWhite" type="submit" (click)="updateProfile()"[disabled]="!userForm.valid">Update</button>
+            <button ion-button color="colorWhite" type="submit" (click)="updateProfile()"[disabled]="!userForm.valid">Update Profile</button>
         </form> 
     </div>
-
-
-    <ion-row class="navButtons">
-        <ion-col width-50>
-           <button ion-button icon-start color="colorWhite" outline (click)="signOut()">
-                <ion-icon name="arrow-dropleft"></ion-icon>
-            Sign out 
-            </button> 
-        </ion-col>
-
-        <ion-col width-50>
-            <button ion-button icon-end  color="colorWhite" (click)="skipPage()" outline>
-            Not now
-                <ion-icon name="arrow-dropright"></ion-icon>
-            </button>
-        </ion-col>
-  </ion-row>
 </ion-content>
-
-

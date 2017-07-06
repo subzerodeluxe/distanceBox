@@ -5,22 +5,20 @@ import { AuthService } from "../../providers/auth-service";
 import { UserService } from "../../providers/user-service";
 import { Storage } from '@ionic/storage';
 import { Alerts } from "../../providers/alerts";
-import { User } from "../../models/user.interface";
 
 
 @IonicPage({
-  name: 'profile'
+  name: 'credentials'
 })
 
 @Component({
-  selector: 'page-profile',
-  templateUrl: 'profile.html',
+  selector: 'page-check-credentials',
+  templateUrl: 'check-credentials.html',
 })
-export class Profile implements OnInit {
+export class CheckCredentialsPage implements OnInit {
 
-   userForm: FormGroup;
+userForm: FormGroup;
    birthday: any; 
-   profileData: {}; 
  
   constructor(public navCtrl: NavController, public storage: Storage, public user: UserService, 
   public navParams: NavParams, public alert: Alerts, public fb: FormBuilder, public auth: AuthService) {
@@ -31,20 +29,15 @@ export class Profile implements OnInit {
        this.userForm = this.fb.group({
            birthday: ['', Validators.required]
        });
-
-      this.profileData = this.user.getActiveUser(); 
-      console.log("The profile data: " + JSON.stringify(this.profileData)); 
    }
 
-  updateProfile() {
+   updateProfile() {
      console.log("User object " + JSON.stringify(this.userForm.value)); 
      this.user.editUserProfile(this.userForm.value);
     
      this.alert.presentBottomToast("Awesome! Your profile is now complete!");
      this.navCtrl.setRoot('dashboard'); 
-  }
-
-
+   }
 
   skipPage() {
     this.navCtrl.setRoot('dashboard'); 
@@ -53,5 +46,4 @@ export class Profile implements OnInit {
   signOut() {
     this.auth.logout(); 
   }
-
 }

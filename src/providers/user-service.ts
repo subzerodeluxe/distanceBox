@@ -1,27 +1,25 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { AngularFire, FirebaseObjectObservable, FirebaseAuthState } from "angularfire2";
-import { Storage } from '@ionic/storage';
+import { User } from "../models/user.interface";
+import { AngularFireAuth } from "angularfire2/auth";
+import { AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/database";
 
 @Injectable()
 export class UserService {
 
-  user: FirebaseObjectObservable<any>;
+  userProfile: FirebaseObjectObservable<any>; 
   uid: string; 
-  private authState: FirebaseAuthState;
-
-  constructor(public af: AngularFire, public storage: Storage) { 
+  user: any; 
+ 
+  constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) { 
+  
   } 
   
   editUserProfile(userObject) { 
-    this.af.auth.subscribe((state: FirebaseAuthState) => {
-      this.authState = state;
-      console.log(this.authState.uid); 
-    });
+    let id = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:""; 
 
-    let id = this.authState?this.authState.uid:''; 
-
-    this.user = this.af.database.object(`/users/${id}`);
+    this.user = this.db.object(`/users/${id}`);
+    
     this.user.update({
       birthday: userObject.birthday   
     }).then(_ => {
@@ -30,4 +28,12 @@ export class UserService {
       console.log('set birthday in Firebase --> error!'); 
     })
   }  
+
+  getActiveUser(): FirebaseObjectObservable<any>{
+    let id = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:""; 
+    console.log("Current user id: " + id); 
+    
+    return this.userProfile = this.db.object(`/users/${id}`);
+
+  }
 }

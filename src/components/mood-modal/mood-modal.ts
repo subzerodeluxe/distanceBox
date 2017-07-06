@@ -72,9 +72,9 @@ export class MoodModal {
   // Store image into Firebase Storage 
   uploadImage() {
     
-    this.storage.uploadImage(this.imageData).then(succ => {
-      this.alerts.presentBottomToast("Upload Finished");
-    });
+    // this.storage.uploadImage(this.imageData).then(succ => {
+    //   this.alerts.presentBottomToast("Upload Finished");
+    // });
   }
 
    /*showLoader(text) {

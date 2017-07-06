@@ -6,7 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Camera } from '@ionic-native/camera';
 
 import { DistanceBox } from './app.component';
-import { AngularFireModule } from 'angularfire2';
 import { AuthService } from "../providers/auth-service";
 import { TimezoneService } from "../providers/timezone-service";
 import { WeatherService } from "../providers/weather-service";
@@ -20,7 +19,11 @@ import { Login } from "../pages/login/login";
 import { Dashboard } from "../pages/dashboard/dashboard";
 import { FormatDate } from "../pipes/format-date";
 import { IonicStorageModule } from '@ionic/storage';
-import { DateValueAccessorModule } from 'angular-date-value-accessor';
+
+// Import the AF2 Module
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 // setup Firebase credentials
 export const firebaseConfig = {
@@ -41,8 +44,9 @@ export const firebaseConfig = {
     BrowserModule,
     IonicModule.forRoot(DistanceBox),
     AngularFireModule.initializeApp(firebaseConfig),
-    IonicStorageModule.forRoot(),
-    DateValueAccessorModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

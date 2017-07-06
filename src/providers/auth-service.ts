@@ -1,18 +1,17 @@
 import { Injectable, EventEmitter, Inject} from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { Platform, AlertController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-
-import { AuthProviders, AngularFire, FirebaseAuthState, AuthMethods, FirebaseApp, FirebaseObjectObservable } from 'angularfire2'; //Add FirebaseApp 
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import { auth } from 'firebase';
 import { UserService } from "./user-service";
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+import { FirebaseObjectObservable } from "angularfire2/database";
+import { auth } from "firebase/app";
 
- 
 @Injectable()
 export class AuthService {
-  private authState: FirebaseAuthState;
-  public onAuth: EventEmitter<FirebaseAuthState> = new EventEmitter();
+  private authState: any; 
+  public onAuth: EventEmitter<any> = new EventEmitter();
   public firebase : any;
   public userData: any; 
   public uid: string;
@@ -20,15 +19,14 @@ export class AuthService {
   user: FirebaseObjectObservable<any>;
    
    constructor(private alertCtrl: AlertController, 
-   private af: AngularFire, @Inject(FirebaseApp)firebase: any, public storage: Storage,
-   private platform: Platform, private fb: Facebook
-) { 
-    this.firebase = firebase; 
+   public afAuth: AngularFireAuth, private platform: Platform, private fb: Facebook) { 
     
-    this.af.auth.subscribe((state: FirebaseAuthState) => {
+    this.firebase = firebase; 
+
+    this.afAuth.authState.subscribe((state) => {
       this.authState = state;
       this.onAuth.emit(state);
-    });
+    }) 
   }
   
   loginWithFacebook() {
@@ -40,7 +38,6 @@ export class AuthService {
             const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
             this.firebase.auth().signInWithCredential(facebookCredential)
               .then(data => {
-                this.storage.set('uid', data.uid);
                 observer.next();
               })
               .catch(error => {
@@ -48,11 +45,8 @@ export class AuthService {
               });
         });
       } else {
-        return this.af.auth.login({
-          provider: AuthProviders.Facebook,
-          method: AuthMethods.Popup
-        }).then(result => {
-            this.storage.set('uid', result.uid);
+        return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+        .then(result => {
             observer.next();
           }).catch(error => {
             observer.error(error);
@@ -63,21 +57,17 @@ export class AuthService {
 
 
   logout() {
-    this.af.auth.logout();
-  }
-
-  get currentUser():string {
-    return this.authState?this.authState.auth.uid:''; 
+     this.afAuth.auth.signOut();
   }
   get userName():string {
-    return this.authState?this.authState.auth.displayName:'';
+    return this.afAuth.auth.currentUser.displayName; 
   } 
 
   get userImage():string {
-    return this.authState?this.authState.auth.photoURL:'';
+    return this.afAuth.auth.currentUser.photoURL;
   } 
 
   get userEmail():string {
-    return this.authState?this.authState.auth.email:'';
+    return this.afAuth.auth.currentUser.email; 
   }
 }
