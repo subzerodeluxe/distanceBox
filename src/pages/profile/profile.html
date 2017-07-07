@@ -9,8 +9,14 @@
 </ion-header>
 
 
+
+
 <ion-content padding scrollbar-y-auto>
-    <div text-center class="profile-box">
+    <div *ngIf="fetchingData" class="fetching">
+            <ion-spinner color="bgLight"></ion-spinner>
+    </div>
+    
+    <div *ngIf="!noData" text-center class="profile-box">
         <img class="profile-image"
        src="{{profileData?.profileImage}}"> 
     

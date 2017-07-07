@@ -19,6 +19,7 @@ import { Login } from "../pages/login/login";
 import { Dashboard } from "../pages/dashboard/dashboard";
 import { FormatDate } from "../pipes/format-date";
 import { IonicStorageModule } from '@ionic/storage';
+import { HttpModule } from '@angular/http';
 
 // Import the AF2 Module
 import { AngularFireModule } from 'angularfire2';
@@ -42,6 +43,7 @@ export const firebaseConfig = {
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(DistanceBox),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,

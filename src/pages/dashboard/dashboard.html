@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar color="bgLight">
+    <ion-navbar>
         <ion-buttons start>
             <button ion-button icon-only menuToggle>
                 <ion-icon name="menu"></ion-icon>
@@ -14,7 +14,7 @@
         <h2 *ngIf="userName">Hi {{ userName }} </h2>
     </div>
 
-    <div class="mood-box"
+    <!--<div class="mood-box"
         [ngClass]="{'fadeOut': !showMoodBox}">
         <p>How are you today?</p>
         <p>Feel like sharing your mood?</p>
@@ -24,9 +24,9 @@
             (click)="loadMoodRate()">Yes</button>
             <button ion-button (click)="hideMoodBox()">No</button>
         </div>
-    </div>
+    </div>-->
 
-    <countdown #countdown></countdown>
+    <!--<countdown #countdown></countdown>-->
 
-    <p class="date-box"> {{ date | formatDate }} </p>   
+    <!--<p class="date-box"> {{ date | formatDate }} </p>   -->
 </ion-content>

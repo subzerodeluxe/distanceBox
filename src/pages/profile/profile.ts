@@ -20,6 +20,8 @@ export class ProfilePage implements OnInit {
    userForm: FormGroup;
    birthday: any; 
    profileData = {} as Profile;  
+   fetchingData: boolean = false; 
+   noData: boolean = true; 
  
   constructor(public navCtrl: NavController, public user: UserService, 
   public navParams: NavParams, public alert: Alerts, public fb: FormBuilder, public auth: AuthService) {
@@ -35,8 +37,11 @@ export class ProfilePage implements OnInit {
    }
 
   ionViewDidLoad() {
+    this.fetchingData = true; // start spinner to indicate fetching form data 
     this.user.getUserProfile().subscribe( userProfileObservable => {
       this.profileData = userProfileObservable;
+       this.fetchingData = false; 
+       this.noData = false; 
     });
   }
 

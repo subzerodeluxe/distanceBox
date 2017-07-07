@@ -29,11 +29,11 @@
                 Profile 
             </button>
 
-             <button
+             <!--<button
                 ion-item
                 (click)="loadPage('words')">
                 Learn Words  
-            </button>
+            </button>-->
 
               <button
                 ion-item
@@ -44,7 +44,8 @@
     </ion-content>
 
     <ion-footer>
-        <div class="date">City is {{ correctCity }}</div>
+        <div class="time">{{ correctTime }}</div>
+        <div class="date">{{ correctDate }}</div>
         <ion-list>
             <ion-item>
             <ion-label>Choose city</ion-label>

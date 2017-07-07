@@ -26,7 +26,7 @@ export class UserService {
     })
   }  
 
-   updateUserProfile(userObject) { 
+  updateUserProfile(userObject) { 
     let userId = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:""; 
     this.user = this.db.object(`/users/${userId}`);
     
