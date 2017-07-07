@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../providers/auth-service";
 import { UserService } from "../../providers/user-service";
-import { Storage } from '@ionic/storage';
 import { Alerts } from "../../providers/alerts";
-import { User } from "../../models/user.interface";
+import { Profile } from "../../models/profile.interface";
 
 
 @IonicPage({
@@ -16,35 +15,37 @@ import { User } from "../../models/user.interface";
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
-export class Profile implements OnInit {
+export class ProfilePage implements OnInit {
 
    userForm: FormGroup;
    birthday: any; 
-   profileData: {}; 
+   profileData = {} as Profile;  
  
-  constructor(public navCtrl: NavController, public storage: Storage, public user: UserService, 
+  constructor(public navCtrl: NavController, public user: UserService, 
   public navParams: NavParams, public alert: Alerts, public fb: FormBuilder, public auth: AuthService) {
     
   }
 
   ngOnInit():any {
-       this.userForm = this.fb.group({
-           birthday: ['', Validators.required]
-       });
-
-      this.profileData = this.user.getActiveUser(); 
-      console.log("The profile data: " + JSON.stringify(this.profileData)); 
+    this.userForm = this.fb.group({
+        name: ['', Validators.required],
+        email: ['', Validators.required],
+        birthday: ['', Validators.required]
+    });
    }
 
-  updateProfile() {
-     console.log("User object " + JSON.stringify(this.userForm.value)); 
-     this.user.editUserProfile(this.userForm.value);
-    
-     this.alert.presentBottomToast("Awesome! Your profile is now complete!");
-     this.navCtrl.setRoot('dashboard'); 
+  ionViewDidLoad() {
+    this.user.getUserProfile().subscribe( userProfileObservable => {
+      this.profileData = userProfileObservable;
+    });
   }
 
+  updateProfile() {
+    console.log("User object " + JSON.stringify(this.userForm.value)); 
+    this.user.updateUserProfile(this.userForm.value);
 
+    this.alert.presentBottomToast("Your profile was succesfully updated!");
+  }
 
   skipPage() {
     this.navCtrl.setRoot('dashboard'); 

@@ -11,28 +11,22 @@
 
 <ion-content padding scrollbar-y-auto>
     <div text-center class="profile-box">
-       <img class="profile-image" *ngIf="profileData.profileImage" 
-       src="{{ profileData.profileImage }}"> 
-        
-        
+        <img class="profile-image"
+       src="{{profileData?.profileImage}}"> 
+    
         <form [formGroup]="userForm">
-            <ion-list class="item item-trns" >
-                <ion-item no-lines class="item item-trns">
-                    <ion-input *ngIf="profileData.name">{{ profileData.name | async | json }}</ion-input>
-                    <ion-icon *ngIf="userForm.valid" name="checkmark" item-right></ion-icon>
+            <ion-list class="item item-trns">
+                <ion-item class="item item-trns">
+                    <ion-input formControlName="name" type="text" [(ngModel)]="profileData.name"></ion-input>
                 </ion-item>
 
-                <ion-item no-lines class="item item-trns">
-                    <ion-input *ngIf="profileData.email">{{ profileData.email }}</ion-input>
-                    <ion-icon *ngIf="userForm.valid" name="checkmark" item-right></ion-icon>
+                 <ion-item class="item item-trns">
+                    <ion-input formControlName="email" type="email" [(ngModel)]="profileData.email"></ion-input>
                 </ion-item>
 
-                <ion-item no-lines class="item item-trns">
-                    <ion-label class="item item-trns">Birthday:</ion-label>
-                    <ion-icon *ngIf="userForm.valid" name="checkmark" item-right></ion-icon>
-                    <ion-datetime displayFormat="DD MMM YYYY" placeholder="dd/mmm/yyyy" formControlName="birthday"></ion-datetime>
+                 <ion-item class="item item-trns">
+                    <ion-input formControlName="birthday" type="date" [(ngModel)]="profileData.birthday"></ion-input>
                 </ion-item>
-                
             </ion-list>
             <button ion-button color="colorWhite" type="submit" (click)="updateProfile()"[disabled]="!userForm.valid">Update Profile</button>
         </form> 

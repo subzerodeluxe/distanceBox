@@ -1,27 +1,24 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { User } from "../models/user.interface";
+import { Profile } from "../models/profile.interface";
 import { AngularFireAuth } from "angularfire2/auth";
 import { AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/database";
 
 @Injectable()
 export class UserService {
 
-  userProfile: FirebaseObjectObservable<any>; 
-  uid: string; 
-  user: any; 
+  user: any;
+  userProfile: FirebaseObjectObservable<Profile>; 
  
   constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) { 
-  
   } 
   
   editUserProfile(userObject) { 
-    let id = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:""; 
-
-    this.user = this.db.object(`/users/${id}`);
+    let userId = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:""; 
+    this.user = this.db.object(`/users/${userId}`);
     
     this.user.update({
-      birthday: userObject.birthday   
+      birthday: userObject.birthday  
     }).then(_ => {
       console.log('set birthday in Firebase --> check!');
     }).catch(error => {
@@ -29,11 +26,23 @@ export class UserService {
     })
   }  
 
-  getActiveUser(): FirebaseObjectObservable<any>{
-    let id = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:""; 
-    console.log("Current user id: " + id); 
+   updateUserProfile(userObject) { 
+    let userId = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:""; 
+    this.user = this.db.object(`/users/${userId}`);
     
-    return this.userProfile = this.db.object(`/users/${id}`);
+    this.user.update({
+      birthday: userObject.birthday,
+      name: userObject.name,
+      email: userObject.email 
+    }).then(_ => {
+      console.log('set birthday in Firebase --> check!');
+    }).catch(error => {
+      console.log('set birthday in Firebase --> error!'); 
+    })
+  }  
 
+  getUserProfile(): FirebaseObjectObservable<Profile> {
+    let userId = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:""; 
+    return this.userProfile = this.db.object(`/users/${userId}`); 
   }
 }

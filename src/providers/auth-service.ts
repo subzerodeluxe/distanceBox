@@ -57,7 +57,7 @@ export class AuthService {
 
 
   logout() {
-     this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut();
   }
   get userName():string {
     return this.afAuth.auth.currentUser.displayName; 
