@@ -7,15 +7,8 @@
 
     <ion-content color="bgLight" padding scrollbar-y-auto>
         
-         <ion-list>
-            <ion-item>
-            <ion-avatar item-left>
-                <img *ngIf="auth.authState" src="{{auth.userImage}}">
-            </ion-avatar>
-            <h2 *ngIf="auth.authState">{{auth.userName}}</h2>
-            </ion-item>  
-        </ion-list>
-
+        <user-info></user-info>
+       
         <ion-list>
             <button
                 ion-item
@@ -44,15 +37,33 @@
     </ion-content>
 
     <ion-footer>
-        <div class="time">{{ correctTime }}</div>
-        <div class="date">{{ correctDate }}</div>
+        <div *ngIf="fetchingData" class="fetching-time">
+            <ion-spinner></ion-spinner>
+        </div>
+    <div *ngIf="!noData" >
+        <div *ngIf="correctTilburgTime && fetchedTilburgData" class="time">
+         {{ correctTilburgTime }}
+        </div>
+
+        <div *ngIf="correctTilburgDate && fetchedTilburgData" class="date">
+         {{ correctTilburgDate }}
+        </div>
+
+         <div *ngIf="correctYogjaTime && fetchedYogjaData" class="time">
+         {{ correctYogjaTime }}
+        </div>
+
+        <div *ngIf="correctYogjaDate && fetchedYogjaData" class="date">
+         {{ correctYogjaDate }}
+        </div>
+    </div>
         <ion-list>
             <ion-item>
             <ion-label>Choose city</ion-label>
             <ion-select 
                 (ionChange)="cityChange($event)">
-                <ion-option value="Asia/Jakarta">Yogja</ion-option>
-                <ion-option value="Europe/Amsterdam">Tilburg</ion-option>
+                <ion-option value="Yogja">Yogyakarta</ion-option>
+                <ion-option value="Tilburg">Tilburg</ion-option>
             </ion-select>
             </ion-item>
         </ion-list>

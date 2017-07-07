@@ -25,6 +25,7 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { UserInfoComponent } from '../components/user-info/user-info';
 
 // setup Firebase credentials
 export const firebaseConfig = {
@@ -39,7 +40,8 @@ export const firebaseConfig = {
   declarations: [
     DistanceBox, // name of app 
     MoodModal,
-    SafePipe
+    SafePipe,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,

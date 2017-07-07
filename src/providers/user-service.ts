@@ -11,6 +11,7 @@ export class UserService {
   userProfile: FirebaseObjectObservable<Profile>; 
  
   constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) { 
+
   } 
   
   editUserProfile(userObject) { 

@@ -23,15 +23,16 @@ export class ProfilePage implements OnInit {
    fetchingData: boolean = false; 
    noData: boolean = true; 
  
-  constructor(public navCtrl: NavController, public user: UserService, 
+  constructor(public navCtrl: NavController, public user: UserService,
   public navParams: NavParams, public alert: Alerts, public fb: FormBuilder, public auth: AuthService) {
+    
     
   }
 
   ngOnInit():any {
     this.userForm = this.fb.group({
-        name: ['', Validators.required],
-        email: ['', Validators.required],
+        name: ['', Validators.compose([Validators.maxLength(20), Validators.minLength(3), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        email: ['', Validators.compose([Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'), Validators.required])],
         birthday: ['', Validators.required]
     });
    }
@@ -41,15 +42,15 @@ export class ProfilePage implements OnInit {
     this.user.getUserProfile().subscribe( userProfileObservable => {
       this.profileData = userProfileObservable;
        this.fetchingData = false; 
-       this.noData = false; 
+       this.noData = false;
     });
   }
 
   updateProfile() {
     console.log("User object " + JSON.stringify(this.userForm.value)); 
     this.user.updateUserProfile(this.userForm.value);
-
     this.alert.presentBottomToast("Your profile was succesfully updated!");
+    this.skipPage(); 
   }
 
   skipPage() {

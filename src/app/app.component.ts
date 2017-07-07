@@ -1,13 +1,13 @@
-import { Component, ViewChild, Inject, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Inject } from '@angular/core';
 import { Platform, NavController, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from "../providers/auth-service";
-import { FirebaseApp } from "angularfire2";
 import { AngularFireAuth } from "angularfire2/auth";
 import * as firebase from 'firebase/app'
 import * as moment from 'moment'; import { TimezoneService } from "../providers/timezone-service";
-;
+import { Alerts } from "../providers/alerts";
+import { UserService } from "../providers/user-service";
 
 @Component({
   templateUrl: 'app.html'
@@ -15,45 +15,45 @@ import * as moment from 'moment'; import { TimezoneService } from "../providers/
 
 export class DistanceBox {
   
-  @ViewChild('nav') navCtrl: NavController; 
- 
-  private authState: any; 
-  public onAuth: EventEmitter<any> = new EventEmitter();
+  @ViewChild('nav') navCtrl: NavController;
+
+  // properties 
   public firebase : any;
-
-  correctDate: any; 
-  correctTime: any;
-  gotTime: boolean = false; 
-  globalTime: any; 
-  finalTimeStamp: any; 
   receivedCode: any; 
-  checkTime: any; 
   selectedCity: any; 
-  placeholder: any; 
+  fetchingData: boolean = false; 
+  noData: boolean = true; 
+  
+    // Tilburg
+    correctTilburgDate: any; 
+    correctTilburgTime: any; 
+    fetchedTilburgData: boolean = false; 
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public menuCtrl: MenuController, 
-  public afAuth: AngularFireAuth, public time: TimezoneService, public auth: AuthService) {
+    // Yogja 
+    correctYogjaDate: any; 
+    correctYogjaTime: any; 
+    fetchedYogjaData: boolean = false;  
+
+  constructor(platform: Platform, statusBar: StatusBar, public user: UserService, splashScreen: SplashScreen, public alerts: Alerts, 
+  public menuCtrl: MenuController, public afAuth: AngularFireAuth, public time: TimezoneService, public auth: AuthService) {
     
     this.firebase = firebase; 
 
-    this.afAuth.authState.subscribe((state) => {
-      this.authState = state;
-      this.onAuth.emit(state);
-    }) 
-
     firebase.auth().onAuthStateChanged(user => {
       if(user) { // when user is authenticated 
-        this.navCtrl.setRoot('credentials');
+        this.navCtrl.setRoot('dashboard');
       } else {
         this.navCtrl.setRoot('onboarding'); 
       }
     });
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
     });
+    
   }
 
   loadPage(page: any) {
@@ -68,72 +68,66 @@ export class DistanceBox {
   }
 
   cityChange(code) {
-    this.receivedCode = code; 
-    console.log(this.receivedCode); 
-
-    if(this.receivedCode == 'Europe/Amsterdam') {
-      clearTimeout(this.checkTime);
-      this.gotTime = false;
-      this.startTime(this.receivedCode); 
+    switch(code) { 
+      case 'Tilburg': { 
       
-    } else {
-      clearTimeout(this.checkTime); 
-      this.gotTime = false; 
-      this.startTime(this.receivedCode); 
+      this.receivedCode = 'Europe/Amsterdam'; 
+
+      this.fetchingData = true; // start spinner to indicate fetching time and date 
+      
+      // get time snapshot 
+      this.getTime(this.receivedCode); 
+
+      // only show Tilburg date, hide Yogja date 
+      this.fetchedTilburgData = true; 
+      this.fetchedYogjaData = false; 
+        break; 
+      } 
+      case 'Yogja': { 
+        this.receivedCode = 'Asia/Jakarta'; 
+
+        this.fetchingData = true; // start spinner to indicate fetching time and date 
+      
+        // get time snapshot
+        this.getTime(this.receivedCode);
+
+        // only show Yogja date, hide Tilburg date 
+        this.fetchedYogjaData = true;
+        this.fetchedTilburgData = false;
+        break; 
+      } 
+      default: {
+        this.alerts.presentTopToast('Please select a city'); 
+        break;    
+      } 
     }
   }
 
-  
-  getTime(code) {
-    this.time.getTimeByCity(code).subscribe(
+  getTime(receivedCode) {
+    this.time.getTimeByCity(receivedCode).subscribe(
       data => {
-          console.log('Get Time response ' + JSON.stringify(data));
-          var foreignTime = new Date(data.timestamp*1000);
-          var foreignHours = foreignTime.getUTCHours();
-          this.finalTimeStamp = foreignTime.setHours(foreignHours);
-          var finalTime = new Date(this.finalTimeStamp);
-          
-          console.log("finalTime: " + finalTime); 
+        console.log("Date object" + JSON.stringify(data));
+        let finalTime = new Date(data.formatted);
+        
+        console.log("Final time: " + finalTime);
+        this.correctTilburgTime = moment(finalTime).format('hh:mm a');
+        this.correctTilburgDate = this.formatDate(finalTime); 
 
-          // set correctDate 
-          this.correctDate = this.formatDate(finalTime); 
-      
-          // SET GLOBALTIME 
-          this.globalTime = finalTime; 
-        },
-        err => {
-          console.log(err);
-        },
-        () => console.log('Completed!')
-    );
-  } // getTime() 
+        this.correctYogjaTime = moment(finalTime).format('hh:mm a');
+        this.correctYogjaDate = this.formatDate(finalTime); 
 
-
-  startTime(cityCode) {
-  
-    if (this.gotTime == false) {
-      this.getTime(cityCode); 
-      this.gotTime = true; 
-    } 
-  
-    this.checkTime = setTimeout(() => {
-
-      var hours = this.globalTime.getHours();
-      var localMinutes = new Date().getMinutes(); 
-      this.globalTime.setMinutes(localMinutes);
-      var minutes = this.globalTime.getMinutes();
-      var localSeconds = new Date().getSeconds();
-      this.globalTime.setSeconds(localSeconds);
-      var seconds = this.globalTime.getSeconds();
-      
-      this.correctTime = moment(this.globalTime).format('hh:mm:ss a');
-      var consoleTime = moment(this.globalTime).format('hh:mm:ss a'); 
-      console.log(consoleTime);
-
-      this.startTime(cityCode);
-    }, 1000) 
+        this.fetchingData = false; // got data, hide spinner 
+        if (this.receivedCode == 'Europe/Amsterdam') {
+           this.fetchedTilburgData = true; 
+           this.noData = false; 
+        } else {
+          this.fetchedYogjaData = true; 
+          this.noData = false; 
+        }
+      },
+      err => this.alerts.showAlertMessage("Something went wrong", err, "OK")
+    ); 
   }
-
 
   formatDate(date) {
     var monthNames = [

@@ -59,15 +59,16 @@ export class AuthService {
   logout() {
     this.afAuth.auth.signOut();
   }
+
   get userName():string {
-    return this.afAuth.auth.currentUser.displayName; 
+    return this.afAuth.auth?this.afAuth.auth.currentUser.displayName:''; 
   } 
 
   get userImage():string {
-    return this.afAuth.auth.currentUser.photoURL;
+    return this.afAuth.auth?this.afAuth.auth.currentUser.photoURL:'';
   } 
 
   get userEmail():string {
-    return this.afAuth.auth.currentUser.email; 
+    return this.afAuth.auth?this.afAuth.auth.currentUser.email:''; 
   }
 }
