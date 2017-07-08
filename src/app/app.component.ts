@@ -1,4 +1,4 @@
-import { Component, ViewChild, Inject } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -41,7 +41,7 @@ export class DistanceBox {
 
     firebase.auth().onAuthStateChanged(user => {
       if(user) { // when user is authenticated 
-        this.navCtrl.setRoot('dashboard');
+        this.navCtrl.setRoot('credentials');
       } else {
         this.navCtrl.setRoot('onboarding'); 
       }

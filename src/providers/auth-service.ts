@@ -1,8 +1,7 @@
-import { Injectable, EventEmitter, Inject} from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { Platform, AlertController } from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import { UserService } from "./user-service";
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { FirebaseObjectObservable } from "angularfire2/database";
