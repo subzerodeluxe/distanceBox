@@ -1,18 +1,22 @@
-<ion-content no-bounce scrollbar-y-auto>
+<ion-content [style.background-color]="moodColor" no-bounce scrollbar-y-auto>
 
   <h4>How do you feel?</h4>
   <h5>Use your finger to express your mood</h5>
   <smile-rate (moodSaved)="saveMood($event)"></smile-rate>
   
-  <button ion-button full (click)="saveCurrentMood()">
+  <button 
+    ion-button 
+    color="colorWhite" 
+    outline 
+    (click)="saveCurrentMood()">
   Save Mood
   </button>
-
+                                         
  
 </ion-content>
 
 <ion-footer>
-  <ion-navbar color="navbarGreen">
+  <ion-navbar [style.color]="moodColor">
     <ion-title>No thanks</ion-title>
   </ion-navbar>
 </ion-footer>

@@ -18,7 +18,7 @@
     
     <div *ngIf="!noData" text-center class="profile-box">
         <img class="profile-image"
-       src="{{profileData?.profileImage}}"> 
+       [src]="profileData?.profileImage"> 
     
         <form [formGroup]="userForm">
             <ion-list class="item item-trns">

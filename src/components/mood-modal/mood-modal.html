@@ -1,33 +1,30 @@
 
-<ion-content padding scrollbar-y-auto>
+<ion-content [style.background-color]="moodColor" padding scrollbar-y-auto>
   
-  <h4>{{ welcomeMessage }}</h4>
-  
-  <h5>Your mood is {{ moodRating }}%</h5>
+  <div class="text-box">
+    <h4>{{ welcomeMessage }}</h4>
+    
+    <h5>Your mood is {{ moodRating }}%</h5>
 
-  <h4>{{ closingMessage }}</h4>
+    <h4>{{ closingMessage }}</h4>
+  </div>
 
-  <button *ngIf="showCamera == true" ion-button full (click)="takePicture()">
+  <button *ngIf="showCamera == true" ion-button outline color="colorWhite"  (click)="takePicture()">
   Sure!
   </button>
 
 
-  <button *ngIf="shareMood == true" ion-button full (click)="saveCurrentMood()">
+  <button *ngIf="shareMood == true" ion-button outline color="colorWhite"(click)="saveCurrentMood()">
   Share my mood
   </button>
 
-  <img [src]="currentImage | safePipe: 'url'"
+  <img *ngIf="currentImage" [src]="currentImage | safePipe: 'url'"
   style="width: 100%" [hidden]="currentImage === null">
   
-  <button ion-button full icon-left (click)="uploadImage()" [disabled]="currentImage === null">
-   <ion-icon name="cloud-upload"></ion-icon>
-   Upload Image
-  </button>
-
 </ion-content>
 
 <ion-footer>
-  <ion-navbar color="navbarGreen">
+  <ion-navbar [style.background-color]="moodColor">
     <ion-title (click)="closeModal()">x No thanks</ion-title>
   </ion-navbar>
 </ion-footer>

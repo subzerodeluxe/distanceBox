@@ -1,5 +1,6 @@
 import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
- 
+import { Events } from "ionic-angular";
+
 @Component({
   selector: 'smile-rate',
   templateUrl: 'smile-rate.html'
@@ -9,14 +10,15 @@ export class SmileRate {
     @ViewChild('smileCanvas') smileCanvas;
     smileHeight: number = 250;
     rating: number = Math.round(100 - ((250 - this.smileHeight) / 2));
-    
+    moodColor: any;
+  
     @Output() moodSaved = new EventEmitter();
 
-    constructor() { 
-       // this.moodSaved.emit(this.rating); 
+    constructor(public ev: Events) { 
+        this.moodSaved.emit(this.rating); 
     }
  
-    ngAfterViewInit(){  
+    ngAfterViewInit() {  
         let hammer = new window['Hammer'](this.smileCanvas.nativeElement);
         hammer.get('pan').set({ direction: window['Hammer'].DIRECTION_ALL });
  
@@ -58,16 +60,15 @@ export class SmileRate {
     }
  
     redraw(){
-        
         this.moodSaved.emit(this.rating); 
         let ctx = this.smileCanvas.nativeElement.getContext('2d');
- 
+
         ctx.clearRect(0, 0, this.smileCanvas.nativeElement.width, this.smileCanvas.nativeElement.height);
         this.drawEyes();
         this.drawSmile();
     }
  
-    handlePan(ev){
+    handlePan(ev) {
  
         this.smileHeight = ev.center.y - ev.target.offsetHeight;
  
@@ -78,6 +79,14 @@ export class SmileRate {
         }
  
         this.rating = Math.round(100 - ((250 - this.smileHeight) / 2));
+        
+        if(this.rating < 50) {
+            this.moodColor = '#6565B0'; 
+            this.ev.publish('moodColor', this.moodColor);  
+        } else {
+            this.moodColor = '#D99862'; 
+            this.ev.publish('moodColor', this.moodColor);  
+        }
  
         this.redraw();
  

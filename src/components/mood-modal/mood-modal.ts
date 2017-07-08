@@ -11,6 +11,7 @@ import { StorageService } from "../../providers/storage-service";
 export class MoodModal {
 
   moodRating: any;
+  moodColor: any; 
   welcomeMessage: string;
   closingMessage: string;  
   showCamera: boolean; 
@@ -19,16 +20,13 @@ export class MoodModal {
   imageData: any; 
   currentImage: string = ""; 
 
-  constructor(params: NavParams, 
-  public viewCtrl: ViewController,
-  public loadingCtrl: LoadingController,
-  public alerts: Alerts,
-  public storage: StorageService,
-  private camera: Camera) {
+  constructor(params: NavParams, public viewCtrl: ViewController,public loadingCtrl: LoadingController, public alerts: Alerts,
+  public storage: StorageService, public camera: Camera) {
     
     this.moodRating = params.get('mood'); 
+    this.moodColor = params.get('moodColor'); 
 
-   console.log("Dit is meegekomen " + this.moodRating);
+   console.log("Dit is meegekomen " + this.moodRating + " " + this.moodColor);
  }
 
   ngOnInit() {
