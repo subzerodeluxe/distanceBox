@@ -31,10 +31,12 @@
                 </ion-item>
 
                  <ion-item class="item item-trns">
-                    <ion-datetime displayFormat="DD MMM YYYY" formControlName="birthday" type="date" [(ngModel)]="profileData.birthday"></ion-datetime>
+                    <ion-label class="item item-trns">Birthday:</ion-label>
+                    <ion-datetime  displayFormat="DD MMM YYYY" formControlName="birthday" type="date" [(ngModel)]="profileData.birthday"></ion-datetime>
                 </ion-item>
             </ion-list>
-            <button ion-button color="colorWhite" type="submit" (click)="updateProfile()"[disabled]="!userForm.valid">Update Profile</button>
+            <button ion-button color="colorWhite" type="submit" 
+            (click)="updateProfile()"[disabled]="!userForm.valid">Update Profile</button>
         </form> 
     </div>
 </ion-content>

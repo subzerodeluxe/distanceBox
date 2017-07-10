@@ -37,14 +37,13 @@
     </ion-content>
 
     <ion-footer>
-        <div *ngIf="fetchingData" class="fetching-time">
-            <ion-spinner></ion-spinner>
-        </div>
     <div *ngIf="!noData" >
         <div *ngIf="correctTilburgTime && fetchedTilburgData" class="time">
          {{ correctTilburgTime }}
         </div>
-
+        <div *ngIf="fetchingData" class="fetching-time">
+            <ion-spinner></ion-spinner>
+        </div>
         <div *ngIf="correctTilburgDate && fetchedTilburgData" class="date">
          {{ correctTilburgDate }}
         </div>

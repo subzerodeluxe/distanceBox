@@ -17,12 +17,15 @@ import { StorageService } from "../providers/storage-service";
 import { SafePipe } from "../pipes/safe-pipe";
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpModule } from '@angular/http';
+import { BoostModal } from '../components/boost-modal/boost-modal';
+import { BoostService } from '../providers/boost-service';
+import { UserInfoComponent } from '../components/user-info/user-info';
+
 
 // Import the AF2 Module
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { UserInfoComponent } from '../components/user-info/user-info';
 
 // setup Firebase credentials
 export const firebaseConfig = {
@@ -38,7 +41,8 @@ export const firebaseConfig = {
     DistanceBox, // name of app 
     MoodModal,
     SafePipe,
-    UserInfoComponent
+    UserInfoComponent,
+    BoostModal
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,8 @@ export const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     DistanceBox,
-    MoodModal
+    MoodModal,
+    BoostModal
   ],
   providers: [
     StatusBar,
@@ -60,7 +65,8 @@ export const firebaseConfig = {
     Camera, 
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService, TimezoneService, WeatherService,
-    Alerts, Facebook, UserService, StorageService 
+    Alerts, Facebook, UserService, StorageService,
+    BoostService 
   ]
 })
 export class AppModule {}

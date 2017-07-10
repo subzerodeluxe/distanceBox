@@ -55,8 +55,11 @@ export class AuthService {
   } // loginWithFacebook
 
 
-  logout() {
-    this.afAuth.auth.signOut();
+  logout(): firebase.Promise<void> {
+    firebase.database().ref('/users')
+    .child(firebase.auth().currentUser.uid).off();
+
+    return firebase.auth().signOut();
   }
 
   get userName():string {

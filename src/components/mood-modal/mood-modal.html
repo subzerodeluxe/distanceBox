@@ -1,4 +1,3 @@
-
 <ion-content [style.background-color]="moodColor" padding scrollbar-y-auto>
   
   <div class="text-box">
@@ -14,8 +13,8 @@
   </button>
 
 
-  <button *ngIf="shareMood == true" ion-button outline color="colorWhite"(click)="saveCurrentMood()">
-  Share my mood
+  <button *ngIf="shareMood == true" ion-button outline color="colorWhite" (click)="giveBoost()">
+  Ask for a boost!
   </button>
 
   <img *ngIf="currentImage" [src]="currentImage | safePipe: 'url'"
@@ -25,6 +24,8 @@
 
 <ion-footer>
   <ion-navbar [style.background-color]="moodColor">
-    <ion-title (click)="closeModal()">x No thanks</ion-title>
+    <ion-title (click)="closeModal()">
+      <ion-icon name="close"></ion-icon>
+      No thanks</ion-title>
   </ion-navbar>
 </ion-footer>

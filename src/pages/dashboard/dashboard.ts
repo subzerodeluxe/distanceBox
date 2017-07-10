@@ -39,7 +39,7 @@ export class Dashboard {
     }) 
    } 
 
-   ionViewDidLoad() {
+   ionViewDidEnter() {
     this.user.getUserProfile().subscribe(userProfileObservable => {
       console.log("Dashboard user: " + JSON.stringify(userProfileObservable)); 
       this.profileData = userProfileObservable;

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController, LoadingController } from "ionic-angular";
+import { NavParams, ViewController, LoadingController, NavController, ModalController } from "ionic-angular";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Alerts } from "../../providers/alerts";
 import { StorageService } from "../../providers/storage-service";
+import { BoostModal } from "../boost-modal/boost-modal";
 
 @Component({
   selector: 'mood-modal',
@@ -20,8 +21,8 @@ export class MoodModal {
   imageData: any; 
   currentImage: string = ""; 
 
-  constructor(params: NavParams, public viewCtrl: ViewController,public loadingCtrl: LoadingController, public alerts: Alerts,
-  public storage: StorageService, public camera: Camera) {
+  constructor(params: NavParams, public navCtrl: NavController, public viewCtrl: ViewController,public loadingCtrl: LoadingController, public alerts: Alerts,
+  public storage: StorageService, public camera: Camera, public modalCtrl: ModalController) {
     
     this.moodRating = params.get('mood'); 
     this.moodColor = params.get('moodColor'); 
@@ -40,6 +41,11 @@ export class MoodModal {
       this.shareMood = true; 
     }
     
+  }
+
+  giveBoost() {
+    let modal = this.modalCtrl.create(BoostModal);
+    modal.present(); 
   }
 
   takePicture() {
@@ -64,22 +70,9 @@ export class MoodModal {
   }
 
   closeModal() {
-      this.viewCtrl.dismiss();
-   }
-
-  // Store image into Firebase Storage 
-  uploadImage() {
-    
-    // this.storage.uploadImage(this.imageData).then(succ => {
-    //   this.alerts.presentBottomToast("Upload Finished");
-    // });
+      //this.viewCtrl.dismiss();
+    this.navCtrl.setRoot('dashboard'); 
   }
 
-   /*showLoader(text) {
-        let loader = this.loadingCtrl.create({
-            content: text 
-            });
-        loader.present(); 
-    }*/ 
-
+ 
 }

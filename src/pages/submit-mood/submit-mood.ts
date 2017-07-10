@@ -38,7 +38,7 @@ export class SubmitMood {
       let modal = this.modalCtrl.create(MoodModal, { mood: this.moodRating, moodColor: this.moodColor });
       modal.present();
     } else {
-      let msg = this.alert.showAlertMessage("Oops", "Could not save your rating. Try again", "OK"); 
+      let msg = this.alert.showAlertMessage("Oops ...", "Could not save your rating. Please try again.", "OK"); 
       msg.present(); 
     }
   }
