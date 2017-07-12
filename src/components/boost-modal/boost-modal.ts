@@ -12,4 +12,8 @@ export class BoostModal {
     console.log('Hello BoostModalComponent Component');
   }
 
+  sendMoodToUser() {
+    
+  }
+
 }
