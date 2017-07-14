@@ -20,6 +20,7 @@ import { HttpModule } from '@angular/http';
 import { BoostModal } from '../components/boost-modal/boost-modal';
 import { BoostService } from '../providers/boost-service';
 import { UserInfoComponent } from '../components/user-info/user-info';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 // Import the AF2 Module
@@ -51,7 +52,8 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    BrowserAnimationsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -17,6 +17,8 @@ export class MoodModal {
   closingMessage: string;  
   showCamera: boolean; 
   shareMood: boolean; 
+  shareMoodWith: any; 
+  persons: any; 
 
   imageData: any; 
   currentImage: string = ""; 
@@ -37,12 +39,14 @@ export class MoodModal {
       this.showCamera = true; 
     } else {
       this.welcomeMessage = "Oh noo ...";
-      this.closingMessage = "You could use a boost";
+      this.closingMessage = "You could use a boost!";
       this.shareMood = true; 
     }
-    
-  }
 
+    this.persons = [{"name": "Maarten"},{"name": "Thijs"}]; 
+  }
+  
+  
   giveBoost() {
     let modal = this.modalCtrl.create(BoostModal);
     modal.present(); 

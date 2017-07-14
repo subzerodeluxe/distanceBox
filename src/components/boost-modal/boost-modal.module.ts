@@ -7,7 +7,7 @@ import { BoostModal } from './boost-modal';
     BoostModal,
   ],
   imports: [
-    IonicPageModule.forChild(BoostModal),
+    IonicPageModule.forChild(BoostModal)
   ],
   exports: [
     BoostModal

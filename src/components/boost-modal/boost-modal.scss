@@ -1,3 +1,15 @@
-boost-modal {
+.ios, .md {
+    boost-modal {
+        .scroll-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #6565B0;
+        }
 
+        .text-box p {
+            color: #fff; 
+        }
+    }
 }
