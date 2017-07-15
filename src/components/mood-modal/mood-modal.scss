@@ -28,5 +28,23 @@
         .footer-text {
             margin-left: 1.5rem;
         }
+
+        .ask-for-boost .item-md {
+            padding-bottom: 2rem; 
+            background-color: transparent;
+        }
+
+        .ask-for-boost .select-text {
+            color: #fff; 
+        }
+
+        .select-md .select-icon .select-icon-inner {
+            color: #fff;
+   
+        }
+
+        .item-input .label-md, .item-select .label-md, .item-datetime .label-md {
+            color: #fff;
+        }
     } 
 }

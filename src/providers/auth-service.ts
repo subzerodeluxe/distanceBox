@@ -56,7 +56,7 @@ export class AuthService {
 
 
   logout(): firebase.Promise<void> {
-    firebase.database().ref('/users')
+    firebase.database().ref('/boxes/DA72tCfOH2ZFaCZcVnEPj53cl7JA/users')
     .child(firebase.auth().currentUser.uid).off();
 
     return firebase.auth().signOut();

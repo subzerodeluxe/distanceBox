@@ -48,3 +48,18 @@
   text-align: center;
   padding-top: 0x;
 }
+
+// FONTS
+@font-face {
+  font-family: 'montserrat-bold';
+  font-style: normal;
+  font-weight: 700; 
+  src: url('../assets/fonts/montserrat-bold.woff2');
+}
+
+@font-face {
+  font-family: 'montserrat-regular';
+  font-style: normal;
+  font-weight: 400; 
+  src: url('../assets/fonts/montserrat-regular.woff2');
+}

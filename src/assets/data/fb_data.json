@@ -1,0 +1,94 @@
+{
+	"users": {
+		"Xu72tCfOH2ZFaCZcVnEPj53cl7J2": {
+			"birthday": "2016-02-01",
+			"email": "maarten.waanders@gmail.com",
+			"onesignalId": "adsfsdfasdf",
+			"name": "Maarten",
+			"profileImage": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/11811285_804715932959643_349996615397727805_n.jpg?oh=a153f7a8bd2c30afa323020210e3ec3d&oe=59FE5C26"
+		},
+		"oRD79Df1bMQdc1ULIo65gJTdKDj2": {
+			"birthday": "not set",
+			"email": "heyretnosasi@gmail.com",
+			"onesignalId": "afasfdasdfasf",
+			"name": "Sasi",
+			"profileImage": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/16002967_10208072105502681_4501739678096995522_n.jpg?oh=3cf461309a2c297b420d036e5f36bbc7&oe=5A0CC586"
+		}
+	},
+	"boxes": {
+		"DA72tCfOH2ZFaCZcVnEPj53cl7JA": {
+			"users": {
+				"oRD79Df1bMQdc1ULIo65gJTdKDj2": {
+					"birthday": "not set",
+					"email": "heyretnosasi@gmail.com",
+					"onesignalId": "afasfdasdfasf",
+					"name": "Sasi",
+					"profileImage": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/16002967_10208072105502681_4501739678096995522_n.jpg?oh=3cf461309a2c297b420d036e5f36bbc7&oe=5A0CC586"
+				},
+				"Xu72tCfOH2ZFaCZcVnEPj53cl7J2": {
+					"birthday": "2016-02-01",
+					"email": "maarten.waanders@gmail.com",
+					"onesignalId": "adsfsdfasdf",
+					"name": "Maarten",
+					"profileImage": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/11811285_804715932959643_349996615397727805_n.jpg?oh=a153f7a8bd2c30afa323020210e3ec3d&oe=59FE5C26"
+				}
+			},
+			"boosts": {
+				"yXAdf79Df1bMQdc1ULIo65gJTdKE26": {
+					"sentBy": "Xu72tCfOH2ZFaCZcVnEPj53cl7J2",
+					"sentTo": "oRD79Df1bMQdc1ULIo65gJTdKDj2",
+					"seen": false,
+					"timestamp": "2016-02-01:3004993",
+					"message": {
+						"title": "Hey poppie",
+						"msgText": "Hopefully this will cheer you up",
+						"data": {
+							"imageUrl": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/11811285_804715932959643_349996615397727805_n.jpg?oh=a153f7a8bd2c30a",
+							"audioUrl": "asfsadfsdfsdfsfd",
+							"videoUrl": "adfasdfsdfasfsdf"
+						}
+					}
+				},
+				"yXAdf79Df1bMQdc1ULIo65gJTdKE25": {
+					"sentBy": "Xu72tCfOH2ZFaCZcVnEPj53cl7J2",
+					"sentTo": "oRD79Df1bMQdc1ULIo65gJTdKDj2",
+					"seen": false,
+					"timestamp": "2016-02-01:3004993",
+					"message": {
+						"title": "Hey poppie",
+						"msgText": "Hopefully this will cheer you up",
+						"data": {
+							"imageUrl": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/11811285_804715932959643_349996615397727805_n.jpg?oh=a153f7a8bd2c30a",
+							"audioUrl": "asfsadfsdfsdfsfd",
+							"videoUrl": "adfasdfsdfasfsdf"
+						}
+					}
+				}
+			},
+			"data": {
+				"images": {
+					"addf79Df1bMQdc1ULIo65gJTdKD12": {
+						"url": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/11811285_804715932959643_349996615397727805_n.jpg?oh=a153f7a8bd2c30a",
+						"uid": "oRD79Df1bMQdc1ULIo65gJTdKDj2"
+					},
+					"zddf79Df1bMQdc1ULIo65gJTdKD21": {
+						"url": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/11811285_804715932959643_349996615397727805_n.jpg?oh=a153f7a8bd2c30a",
+						"uid": "oRD79Df1bMQdc1ULIo65gJTdKDj2"
+					}
+				},
+				"audio": {
+					"0odf79Df1bMQdc1ULIo65gJTdKD23": {
+						"url": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/11811285_804715932959643_349996615397727805_n.jpg?oh=a153f7a8bd2c30a",
+						"uid": "oRD79Df1bMQdc1ULIo65gJTdKDj2"
+					}
+				},
+				"video": {
+					"12d79Df1bMQdc1ULIo65gJTdKD39": {
+						"url": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/11811285_804715932959643_349996615397727805_n.jpg?oh=a153f7a8bd2c30a",
+						"uid": "oRD79Df1bMQdc1ULIo65gJTdKDj2"
+					}
+				}
+			}
+		}
+	}
+}

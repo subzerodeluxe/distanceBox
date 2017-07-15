@@ -8,7 +8,7 @@
     <h4>{{ closingMessage }}</h4>
   </div>
 
-  <button *ngIf="showCamera == true" ion-button outline color="colorWhite"  (click)="takePicture()">
+  <button *ngIf="showCamera == true" ion-button outline color="colorWhite" (click)="takePicture()">
   Sure!
   </button>
 
@@ -20,14 +20,19 @@
         </ion-select>
     </ion-item>
 
-    <button *ngIf="shareMood == true && shareMoodWith != null" text-center ion-button outline color="colorWhite" (click)="giveBoost()">
-    Ask for a boost!
-    </button>
+    <div text-center>
+      <button *ngIf="shareMood == true && shareMoodWith != null" text-center 
+      ion-button outline color="colorWhite" (click)="giveBoost()">
+        Ask {{ shareMoodWith }} for a boost!
+      </button>
+    </div>
   </div>
 
 
-  <img *ngIf="currentImage" [src]="currentImage | safePipe: 'url'"
-  style="width: 100%" [hidden]="currentImage === null">
+  <!-- <img *ngIf="moodPicture" [src]="moodPicture | safePipe: 'url'"
+  style="width: 100%" [hidden]="moodPicture === null"> -->
+
+  <!--Gebruiker drukt op Sure, camera opent, nieuwe modal (imageModal) wordt geladen met daarin de foto  --> 
   
 </ion-content>
 

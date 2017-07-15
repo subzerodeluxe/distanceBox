@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Profile } from "../models/profile.interface";
 import { AngularFireAuth } from "angularfire2/auth";
-import { AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/database";
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from "angularfire2/database";
 
 @Injectable()
 export class UserService {
@@ -16,7 +16,7 @@ export class UserService {
   
   editUserProfile(userObject) { 
     let userId = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:""; 
-    this.user = this.db.object(`/users/${userId}`);
+    this.user = this.db.object(`/boxes/DA72tCfOH2ZFaCZcVnEPj53cl7JA/users/${userId}`);
     
     this.user.update({
       birthday: userObject.birthday  
@@ -29,7 +29,7 @@ export class UserService {
 
   updateUserProfile(userObject) { 
     let userId = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:""; 
-    this.user = this.db.object(`/users/${userId}`);
+    this.user = this.db.object(`/boxes/DA72tCfOH2ZFaCZcVnEPj53cl7JA/users/${userId}`);
     
     this.user.update({
       birthday: userObject.birthday,
@@ -44,6 +44,10 @@ export class UserService {
 
   getUserProfile(): FirebaseObjectObservable<Profile> {
     let userId = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:""; 
-    return this.userProfile = this.db.object(`/users/${userId}`); 
+    return this.userProfile = this.db.object(`/boxes/DA72tCfOH2ZFaCZcVnEPj53cl7JA/users/${userId}`); 
+  }
+
+  getUsers(): FirebaseListObservable<Profile[]> {
+    return this.db.list(`/boxes/DA72tCfOH2ZFaCZcVnEPj53cl7JA/users`);
   }
 }

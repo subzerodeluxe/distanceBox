@@ -4,6 +4,14 @@
 
         background-color: color($colors, bgDark);
 
+        ion-list-header {
+            background-color: #FBFBFB;
+        }
+
+        ion-item {
+            background-color: #FFFCF5; 
+        }
+
         .welcome-box {
             padding-top: 20px; 
             margin: auto;
@@ -12,16 +20,21 @@
 
         .welcome-box h2 {
             font-weight: bold;
-            text-align: center;  
+            text-align: center;
+            color: #C8C9CD;
+            font-family: 'montserrat-bold';
         }
 
         .mood-box {
             margin: auto;
+            padding-bottom: 20px; 
         }
 
         .mood-box p {
             text-align: center;
-            font-size: 18px; 
+            font-size: 18px;
+            color: #C8C9CD;
+            font-family: 'montserrat-regular';
         }
 
         .mood-button {

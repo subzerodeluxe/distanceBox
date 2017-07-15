@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from "ionic-angular";
+import { NavController, NavParams } from "ionic-angular";
 import { trigger, state, style, transition, animate } from "@angular/core";
 
 @Component({
@@ -23,9 +23,11 @@ export class BoostModal {
 
   fetchingData: boolean = false; 
   buttonState: any = "in";
+  name: string; 
 
-  constructor(public navCtrl: NavController) {
-    console.log('Hello BoostModalComponent Component');
+  constructor(public navCtrl: NavController, public params: NavParams) {
+     this.name = params.get('shareMoodWith'); 
+     console.log(this.name); 
   }
 
   sendMoodToUser() {

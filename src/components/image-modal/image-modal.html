@@ -1,0 +1,21 @@
+<ion-content scrollbar-y-auto>
+  <div class="mood-picture">
+    <img *ngIf="moodPicture" [src]="moodPicture | safePipe: 'url'"
+    style="width: 100%" [hidden]="moodPicture === null">
+  </div>
+
+   <div text-center padding-top>
+      <button *ngIf="moodPicture" text-center 
+      ion-button outline color="colorWhite" (click)="uploadImageToStorage()">
+        Upload this image 
+      </button>
+  </div>  
+
+  <div text-center padding-top>
+      <button *ngIf="moodPicture && pictureUploaded" text-center 
+      ion-button outline color="colorWhite" (click)="uploadImageToDatabase()">
+        Share your image! 
+      </button>
+  </div>
+
+</ion-content>

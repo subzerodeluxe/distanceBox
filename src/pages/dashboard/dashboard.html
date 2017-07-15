@@ -1,14 +1,14 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="primary">
         <ion-buttons start>
-            <button ion-button icon-only menuToggle>
+            <button ion-button icon-only menuToggle start>
                 <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
 
-<ion-content padding scrollbar-y-auto color="bgLight">
+<ion-content scrollbar-y-auto color="bgLight">
 
     <div class="welcome-box">
         <h2 *ngIf="userName">Hi {{ profileData?.name }} </h2>
@@ -16,17 +16,39 @@
 
     <div class="mood-box"
         [ngClass]="{'fadeOut': !showMoodBox}">
-        <p>How are you today?</p>
-        <p>Feel like sharing your mood?</p>
+        <p>How are you today?<br>
+        Feel like sharing your mood?</p>
 
         <div class="mood-button">
-            <button ion-button [ngClass]="{'slide-big': shakeButton}" 
+            <button ion-button color="secondary" [ngClass]="{'slide-big': shakeButton}" 
             (click)="loadMoodRate()">Yes</button>
-            <button ion-button (click)="hideMoodBox()">No</button>
+            <button ion-button color="secondary" (click)="hideMoodBox()">No</button>
         </div>
-    </div>
+    </div> 
 
-    <!--<countdown #countdown></countdown>
+    <countdown #countdown></countdown>
+    <!--<ion-scroll style="width:100%;height:275px" scrollY="true">-->
+        <ion-list class="notifications"> 
 
-    <p class="date-box"> {{ date | formatDate }} </p>   -->
+                <ion-list-header>
+                    Notifications
+                </ion-list-header>
+
+                <ion-item-sliding *ngFor="let notification of notifications">
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <img [src]="profileData?.profileImage">
+                        </ion-avatar>
+                        <h2>{{ notification.name }}</h2>
+                        <p>{{ notification.notification }}</p>
+                    </ion-item>
+
+                    <ion-item-options side="right">
+                        <button ion-button danger (click)="removeItem(item)"><ion-icon name="trash"></ion-icon>Delete</button>
+                    </ion-item-options>
+                </ion-item-sliding>
+        </ion-list>
+    <!-- </ion-scroll> -->
+
+    <!-- <p class="date-box"> {{ date | formatDate }} </p>   -->
 </ion-content>

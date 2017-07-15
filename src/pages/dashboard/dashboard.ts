@@ -27,6 +27,7 @@ export class Dashboard {
   inputSeconds: number; 
   inputDate: any; 
   profileData = {} as Profile; 
+  notifications: any; 
 
 
   constructor(public navCtrl: NavController, public user: UserService, public ev: Events, 
@@ -39,7 +40,7 @@ export class Dashboard {
     }) 
    } 
 
-   ionViewDidEnter() {
+  ionViewDidEnter() {
     this.user.getUserProfile().subscribe(userProfileObservable => {
       console.log("Dashboard user: " + JSON.stringify(userProfileObservable)); 
       this.profileData = userProfileObservable;
@@ -48,18 +49,18 @@ export class Dashboard {
     });
   }
 
-   ngOnInit() {
-     this.date = new Date(); 
-
+  ngOnInit() {
+    this.date = new Date(); 
+    this.notifications = [{"name": "Sasi", "notification": "Requested a boost"}, {"name": "Maarten", "notification": "Requested a boost"}, {"name": "Sasi", "notification": "Requested a boost"}, {"name": "Sasi", "notification": "Requested a boost"}, {"name": "Sasi", "notification": "Requested a boost"}]; 
    }
 
-   hideMoodBox() {
-     this.showMoodBox = false; 
+  hideMoodBox() {
+    this.showMoodBox = false; 
    }
 
-   loadMoodRate() {
-      this.navCtrl.push('submitMood'); 
-   }
+  loadMoodRate() {
+    this.navCtrl.push('submitMood'); 
+  }
 
 }
 

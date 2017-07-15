@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController, LoadingController, NavController, ModalController } from "ionic-angular";
+import { NavParams, ViewController, LoadingController, NavController, ModalController, Platform } from "ionic-angular";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Alerts } from "../../providers/alerts";
 import { StorageService } from "../../providers/storage-service";
 import { BoostModal } from "../boost-modal/boost-modal";
+import { UserService } from "../../providers/user-service";
+import { ImageModal } from "../image-modal/image-modal";
 
 @Component({
   selector: 'mood-modal',
@@ -21,9 +23,9 @@ export class MoodModal {
   persons: any; 
 
   imageData: any; 
-  currentImage: string = ""; 
+  moodPicture: string = null; 
 
-  constructor(params: NavParams, public navCtrl: NavController, public viewCtrl: ViewController,public loadingCtrl: LoadingController, public alerts: Alerts,
+  constructor(params: NavParams, public platform: Platform, public navCtrl: NavController, public user: UserService, public viewCtrl: ViewController,public loadingCtrl: LoadingController, public alerts: Alerts,
   public storage: StorageService, public camera: Camera, public modalCtrl: ModalController) {
     
     this.moodRating = params.get('mood'); 
@@ -43,34 +45,39 @@ export class MoodModal {
       this.shareMood = true; 
     }
 
-    this.persons = [{"name": "Maarten"},{"name": "Thijs"}]; 
+    this.user.getUsers().subscribe(users => {
+      this.persons = users;  
+    })
   }
   
   
   giveBoost() {
-    let modal = this.modalCtrl.create(BoostModal);
+    let modal = this.modalCtrl.create(BoostModal, { shareMoodWith: this.shareMoodWith });
     modal.present(); 
   }
 
   takePicture() {
-    // Create options for the Camera Dialog
-    const options: CameraOptions = {
-      quality: 50,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-      cameraDirection: 1, 
-      saveToPhotoAlbum: false,
-      correctOrientation: true,
-      destinationType: this.camera.DestinationType.DATA_URL
-    };
+      this.camera.getPicture({
+        quality : 95,
+        destinationType : this.camera.DestinationType.DATA_URL,
+        sourceType : this.camera.PictureSourceType.CAMERA,
+        allowEdit : false,
+        cameraDirection: 1,
+        encodingType: this.camera.EncodingType.PNG,
+        targetWidth: 500,
+        targetHeight: 500,
+        saveToPhotoAlbum: true
+      }).then(imageData => {
+        //let base64Image = 'data:image/jpeg;base64,' + imageData;
+        //this.imageData = imageData;
+        this.moodPicture = imageData; 
 
-    this.camera.getPicture(options).then((imageData) => {
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.imageData = imageData;
-      this.currentImage = base64Image;
+        let modal = this.modalCtrl.create(ImageModal, { moodPicture: this.moodPicture });
+        modal.present(); 
 
-    }, (err) => {
-      this.alerts.presentBottomToast("Could not take picture. Please try again!");
-    });
+      }, error => {
+        this.alerts.presentTopToast("Error: " + JSON.stringify(error)); 
+      });
   }
 
   closeModal() {
