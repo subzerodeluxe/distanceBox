@@ -1,7 +1,7 @@
 <ion-content scrollbar-y-auto>
   <div class="mood-picture">
-    <img *ngIf="moodPicture" [src]="moodPicture | safePipe: 'url'"
-    style="width: 100%" [hidden]="moodPicture === null">
+    <img *ngIf="receivedPicture" [src]="receivedPicture | safePipe: 'url'"
+    style="width: 100%" [hidden]="receivedPicture === null">
   </div>
 
    <div text-center padding-top>
