@@ -8,12 +8,9 @@
     </ion-navbar>
 </ion-header>
 
-
-
-
 <ion-content padding scrollbar-y-auto>
     <div *ngIf="fetchingData" class="fetching">
-            <ion-spinner color="bgLight"></ion-spinner>
+        <ion-spinner color="bgLight"></ion-spinner>
     </div>
     
     <div *ngIf="!noData" text-center class="profile-box">

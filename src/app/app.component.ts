@@ -8,6 +8,7 @@ import * as firebase from 'firebase/app'
 import * as moment from 'moment'; import { TimezoneService } from "../providers/timezone-service";
 import { Alerts } from "../providers/alerts";
 import { UserService } from "../providers/user-service";
+import { OneSignal } from "@ionic-native/onesignal";
 
 @Component({
   templateUrl: 'app.html'
@@ -35,7 +36,7 @@ export class DistanceBox {
     fetchedYogjaData: boolean = false;  
 
   constructor(platform: Platform, statusBar: StatusBar, public user: UserService, splashScreen: SplashScreen, public alerts: Alerts, 
-  public menuCtrl: MenuController, public afAuth: AngularFireAuth, public time: TimezoneService, public auth: AuthService) {
+  public menuCtrl: MenuController, public oneSignal: OneSignal, public afAuth: AngularFireAuth, public time: TimezoneService, public auth: AuthService) {
     
     this.firebase = firebase; 
 
@@ -50,10 +51,43 @@ export class DistanceBox {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      if(platform.is('cordova')) {
+        this.initializeOneSignal(); 
+      } 
       statusBar.styleDefault();
       splashScreen.hide();
     });
     
+  }
+
+  initializeOneSignal() {
+    this.oneSignal.startInit("6324c641-04b6-4310-8190-359c8de46f19", "116109602089"); // appID, googleProjectId
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
+    this.oneSignal.setSubscription(true);
+      
+    this.oneSignal.getIds() 
+      .then(ids => {
+        console.log("OneSignal userIds: " + JSON.stringify(ids));
+      })
+      .catch(err => {
+        console.log(err); 
+    })
+
+    this.oneSignal.handleNotificationReceived().subscribe(data => {
+      console.log("We received a push: " + data);
+    });
+
+    this.oneSignal.handleNotificationOpened().subscribe(data => {
+      console.log("We opened the push: " + data);
+
+      let message = data.notification.payload.body;
+      let title = data.notification.payload.title; 
+
+      let alertMessage = this.alerts.showAlertMessage(title, message, "OK"); 
+      alertMessage.present(); 
+
+    });
+    this.oneSignal.endInit();   
   }
 
   loadPage(page: any) {

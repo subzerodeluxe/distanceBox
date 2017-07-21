@@ -24,10 +24,7 @@ export class ProfilePage implements OnInit {
    noData: boolean = true; 
  
   constructor(public navCtrl: NavController, public user: UserService,
-  public navParams: NavParams, public alert: Alerts, public fb: FormBuilder, public auth: AuthService) {
-    
-    
-  }
+  public navParams: NavParams, public alert: Alerts, public fb: FormBuilder, public auth: AuthService) { }
 
   ngOnInit():any {
     this.userForm = this.fb.group({
