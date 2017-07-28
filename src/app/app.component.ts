@@ -65,30 +65,43 @@ export class DistanceBox {
     this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
     this.oneSignal.setSubscription(true);
       
-    this.oneSignal.getIds() 
-      .then(ids => {
-        console.log("OneSignal userIds: " + JSON.stringify(ids));
-      })
-      .catch(err => {
-        console.log(err); 
-    })
-
-    this.oneSignal.handleNotificationReceived().subscribe(data => {
-      console.log("We received a push: " + data);
-    });
-
+    
     this.oneSignal.handleNotificationOpened().subscribe(data => {
-      console.log("We opened the push: " + data);
+      let action = data.notification.payload.additionalData['action'];
+      let actionMessage = data.notification.payload.additionalData['message']; 
 
-      let message = data.notification.payload.body;
-      let title = data.notification.payload.title; 
-
-      let alertMessage = this.alerts.showAlertMessage(title, message, "OK"); 
-      alertMessage.present(); 
-
-    });
+      if(action === "openPage") {
+        this.navCtrl.setRoot('receivedNotication', { id: actionMessage })
+      }
+    })
     this.oneSignal.endInit();   
   }
+    
+    
+    // this.oneSignal.getIds() 
+    //   .then(ids => {
+    //     console.log("OneSignal userIds: " + JSON.stringify(ids));
+    //   })
+    //   .catch(err => {
+    //     console.log(err); 
+    // })
+
+    // this.oneSignal.handleNotificationReceived().subscribe(data => {
+    //   //console.log("We received a push: " + data);
+    // });
+
+    // this.oneSignal.handleNotificationOpened().subscribe(data => {
+    //   //console.log("We opened the push: " + data);
+
+    //   //let message = data.notification.payload.body;
+    //   //let title = data.notification.payload.title; 
+
+    //   //let alertMessage = this.alerts.showAlertMessage(title, message, "OK"); 
+    //   //alertMessage.present(); 
+
+    // });
+    // this.oneSignal.endInit();   
+  
 
   loadPage(page: any) {
     this.navCtrl.setRoot(page); 

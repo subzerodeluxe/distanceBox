@@ -1,5 +1,5 @@
 export interface Image {
   timestamp: string;
-  uid: string;
+  uploadedBy: string;
   url: string;  
 }

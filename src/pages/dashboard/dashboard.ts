@@ -51,9 +51,14 @@ export class Dashboard {
 
   ngOnInit() {
     this.date = new Date(); 
-    this.notifications = [{"name": "Sasi", "notification": "Requested a boost"}, {"name": "Maarten", "notification": "Requested a boost"}, {"name": "Sasi", "notification": "Requested a boost"}, {"name": "Sasi", "notification": "Requested a boost"}, {"name": "Sasi", "notification": "Requested a boost"}]; 
+    this.notifications = [{"name": "Sasi", "notification": "Requested a boost", "read": "false"}, 
+      {"name": "Maarten", "notification": "Requested a boost", "read": "false"}, {"name": "Sasi", "notification": "Requested a boost","read": "true"}, 
+      {"name": "Sasi", "notification": "Requested a boost","read": "true"}, {"name": "Sasi", "notification": "Requested a boost","read": "true"}]; 
    }
 
+  openPage() {
+    this.navCtrl.push('receivedNotication'); 
+  }
   hideMoodBox() {
     this.showMoodBox = false; 
    }
