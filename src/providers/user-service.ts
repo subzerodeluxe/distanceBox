@@ -61,6 +61,11 @@ export class UserService {
     return this.userProfile = this.db.object(`/boxes/DA72tCfOH2ZFaCZcVnEPj53cl7JA/users/${userId}`); 
   }
 
+  findUserbyName(name): any {
+    let users = this.getUsers();
+    return users.map(users => users.filter(user => user.name === name)[0]); 
+  }
+
   getUsers(): FirebaseListObservable<Profile[]> {
     return this.db.list(`/boxes/DA72tCfOH2ZFaCZcVnEPj53cl7JA/users`);
   }

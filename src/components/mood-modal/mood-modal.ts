@@ -50,7 +50,6 @@ export class MoodModal {
     })
   }
   
-  
   giveBoost() {
     let modal = this.modalCtrl.create(BoostModal, { shareMoodWith: this.shareMoodWith });
     modal.present(); 

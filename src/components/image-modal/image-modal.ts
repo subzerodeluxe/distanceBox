@@ -5,6 +5,7 @@ import { StorageService } from "../../providers/storage-service";
 import { Image } from "../../models/image.interface";
 import { AuthService } from "../../providers/auth-service";
 import { NotificationService } from "../../providers/notification-service";
+import { UserService } from "../../providers/user-service";
 
 @Component({
   selector: 'image-modal',
@@ -14,16 +15,23 @@ export class ImageModal {
 
   date: string;
   uid: string; 
+  oneSignalId: string; 
   moodPicture: any; 
   receivedPicture: any; 
   imageObject = {} as Image;
   pictureUploaded: boolean; 
   loadProgress: number = 0;
 
-  constructor(public params: NavParams, public navCtrl: NavController, public pushService: NotificationService, public auth: AuthService, public alerts: Alerts, public storage: StorageService) {
+
+  constructor(public params: NavParams, public navCtrl: NavController, public user: UserService, public pushService: NotificationService, public auth: AuthService, public alerts: Alerts, public storage: StorageService) {
     this.moodPicture = params.get('moodPicture'); 
     this.date = new Date().toDateString(); 
     this.uid = this.auth.afAuth.auth.currentUser.uid; 
+
+     this.user.getUserProfile().subscribe(user => {
+          this.oneSignalId = user.oneSignalId; 
+          console.log("osID: " + this.oneSignalId); 
+        });
   }
 
   uploadImageToStorage() {
@@ -46,15 +54,15 @@ export class ImageModal {
     this.storage.uploadImageToDatabase(this.imageObject)
       .then((success) => { 
         this.navCtrl.setRoot('dashboard');
-      
-        let testBody = {
+
+        let pushBody = {
           "app_id": "6324c641-04b6-4310-8190-359c8de46f19",
-          "include_player_ids": ["4886745d-b80c-4ee4-920c-2e6bbab80f81"],
+          "include_player_ids": [ this.oneSignalId ],
           "headings": {"en": "New image"},
           "contents": {"en": "Maarten uploaded a new image"},
           "data": {"action": "openPage", "message": "This is a secret message!"}
         } 
-        this.pushService.testNotification(testBody)
+        this.pushService.sendNotification(pushBody)
           .then(data => {
             this.alerts.presentTopToast("Push sent!")
              this.alerts.presentBottomToast("Successfully sent your image to Maarten");
