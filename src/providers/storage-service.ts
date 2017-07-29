@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, NgZone } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFireAuth } from "angularfire2/auth";
 import { AngularFireDatabase } from "angularfire2/database";
@@ -7,37 +7,29 @@ import firebase from 'firebase';
 @Injectable()
 export class StorageService {
 
-
-  savedPicture: any; 
-
-  constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) { }
+  savedPicture: any;
+  percentage: any; 
+  
+  constructor(public afAuth: AngularFireAuth, public zone: NgZone, public db: AngularFireDatabase) { }
 
 
   uploadImageToStorage(imageString) {
-
     let image: string  = 'img-' + new Date().getTime() + '.png';
+    let firebasePutString = firebase.storage().ref('/uploads/images/' + image)   
+    .putString(imageString, 'base64', {contentType: 'image/png'}); // store in FB storage
 
-    return firebase.storage().ref('/uploads/images/' + image)   // store in FB storage
-    .putString(imageString, 'base64', {contentType: 'image/png'}); 
+    firebasePutString.on('state_changed', (snapshot) => {
+      this.zone.run(() => {
+        this.percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Percentage: " + this.percentage);
+      })
+    })
     
+    return firebasePutString;
   }
 
   uploadImageToDatabase(imageObject) {
     return firebase.database().ref('boxes/DA72tCfOH2ZFaCZcVnEPj53cl7JA/data/images').push(imageObject); 
   }
 
-  // uploadImage(imageString): Promise<any> {
-
-  //   let image: string  = 'img-' + new Date().getTime() + '.png';
-
-  //   return new Promise((resolve, reject) => { 
-  //     firebase.storage().ref('/uploads/images/' + image)
-  //     .putString(imageString, 'base64', {contentType: 'image/png'})
-  //     .then((savedPicture) => {
-  //       firebase.database()
-  //       .ref('users/Xu72tCfOH2ZFaCZcVnEPj53cl7J2/images')
-  //       .child('image').set(savedPicture.downloadURL);
-  //     })
-  //   }); 
-  // }
 }

@@ -31,6 +31,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { ImageModal } from '../components/image-modal/image-modal';
 import { NotificationListComponent } from '../components/notification-list/notification-list';
 import { NotificationService } from '../providers/notification-service';
+import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 
 // setup Firebase credentials
 export const firebaseConfig = {
@@ -41,18 +42,18 @@ export const firebaseConfig = {
     messagingSenderId: "116109602089"
 };
 
-// class CameraMock extends Camera {
-//   getPicture(options){ 
-//     return new Promise( (resolve, reject) => {
-//       resolve(`TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIG
-//       J1dCBieSB0aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGl
-//       jaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2Yg
-//       ZGVsaWdodCBpbiB0aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb
-//       24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IG
-//       Nhcm5hbCBwbGVhc3VyZS4=`);
-//     });
-//   }
-// }
+class CameraMock extends Camera {
+  getPicture(options){ 
+    return new Promise( (resolve, reject) => {
+      resolve(`TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIG
+      J1dCBieSB0aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGl
+      jaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2Yg
+      ZGVsaWdodCBpbiB0aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb
+      24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IG
+      Nhcm5hbCBwbGVhc3VyZS4=`);
+    });
+  }
+}
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ export const firebaseConfig = {
     UserInfoComponent,
     BoostModal,
     ImageModal,
-    NotificationListComponent
+    NotificationListComponent,
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule,
@@ -84,9 +86,9 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen, 
-    Camera, 
+    //Camera, 
     OneSignal,
-    //{provide: Camera, useClass: CameraMock},
+    {provide: Camera, useClass: CameraMock},
     AuthService, TimezoneService, WeatherService,
     Alerts, Facebook, UserService, StorageService,
     BoostService,

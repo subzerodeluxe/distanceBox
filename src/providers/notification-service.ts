@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 export class NotificationService {
 
   baseUrl: string = "https://onesignal.com/api/v1/notifications";
+  
   constructor(public http: Http) { }
 
   testNotification(notificationData) {

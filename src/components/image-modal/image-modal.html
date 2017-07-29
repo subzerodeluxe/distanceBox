@@ -5,7 +5,7 @@
   </div>
 
    <div text-center padding-top>
-      <button *ngIf="moodPicture" text-center 
+      <button *ngIf="loadProgress == 0" text-center 
       ion-button outline color="colorWhite" (click)="uploadImageToStorage()">
         Upload this image 
       </button>
@@ -17,5 +17,7 @@
         Share your image! 
       </button>
   </div>
+
+  <progress-bar [progress]="loadProgress"></progress-bar>
 
 </ion-content>

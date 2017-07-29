@@ -24,6 +24,7 @@ export class DistanceBox {
   selectedCity: any; 
   fetchingData: boolean = false; 
   noData: boolean = true; 
+  oneSignalUid: string; 
   
     // Tilburg
     correctTilburgDate: any; 
@@ -64,8 +65,7 @@ export class DistanceBox {
     this.oneSignal.startInit("6324c641-04b6-4310-8190-359c8de46f19", "116109602089"); // appID, googleProjectId
     this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
     this.oneSignal.setSubscription(true);
-      
-    
+
     this.oneSignal.handleNotificationOpened().subscribe(data => {
       let action = data.notification.payload.additionalData['action'];
       let actionMessage = data.notification.payload.additionalData['message']; 
@@ -76,32 +76,6 @@ export class DistanceBox {
     })
     this.oneSignal.endInit();   
   }
-    
-    
-    // this.oneSignal.getIds() 
-    //   .then(ids => {
-    //     console.log("OneSignal userIds: " + JSON.stringify(ids));
-    //   })
-    //   .catch(err => {
-    //     console.log(err); 
-    // })
-
-    // this.oneSignal.handleNotificationReceived().subscribe(data => {
-    //   //console.log("We received a push: " + data);
-    // });
-
-    // this.oneSignal.handleNotificationOpened().subscribe(data => {
-    //   //console.log("We opened the push: " + data);
-
-    //   //let message = data.notification.payload.body;
-    //   //let title = data.notification.payload.title; 
-
-    //   //let alertMessage = this.alerts.showAlertMessage(title, message, "OK"); 
-    //   //alertMessage.present(); 
-
-    // });
-    // this.oneSignal.endInit();   
-  
 
   loadPage(page: any) {
     this.navCtrl.setRoot(page); 

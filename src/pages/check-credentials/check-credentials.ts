@@ -33,10 +33,11 @@ userForm: FormGroup;
 
    updateProfile() {
      console.log("User object " + JSON.stringify(this.userForm.value)); 
-     this.user.editUserProfile(this.userForm.value);
-    
-     this.alert.presentBottomToast("Awesome! Your profile is now complete!");
-     this.navCtrl.setRoot('dashboard'); 
+     this.user.editUserProfile(this.userForm.value)
+      .then(_ => {
+        this.alert.presentBottomToast("Awesome! Your profile is now complete!");
+        this.navCtrl.setRoot('dashboard'); 
+      }).catch(err => this.alert.presentBottomToast("Could not update your profile. Try again!"));
    }
 
   skipPage() {
