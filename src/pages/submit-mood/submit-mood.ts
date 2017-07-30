@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
 import { Alerts } from "../../providers/alerts";
-import { MoodModal } from "../../components/mood-modal/mood-modal";
+import { MoodModal } from "../../modals/mood-modal/mood-modal";
 
 @IonicPage({
   name: 'submitMood'

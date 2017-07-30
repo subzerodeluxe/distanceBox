@@ -35,17 +35,17 @@
                     Notifications 
                 </ion-list-header>
 
-                <ion-item-sliding *ngFor="let notification of notifications">
-                    <ion-item>
+                <ion-item-sliding *ngFor="let notification of receivedNotifications | async">
+                    <ion-item (click)="openBoostRequest(notification)">
                         <ion-avatar item-start>
-                            <img [src]="profileData?.profileImage">
+                            <img [src]="notification.sendByProfileImage">
                         </ion-avatar>
-                        <h2>{{ notification.name }}</h2>
-                        <p>{{ notification.notification }}</p>
+                        <h2>{{ notification.timestamp | formatTimestamp }}</h2>
+                        <p>{{ notification.body }}</p>
                     </ion-item>
 
                     <ion-item-options side="right">
-                        <button ion-button danger (click)="removeItem(item)"><ion-icon name="trash"></ion-icon>Delete</button>
+                        <button ion-button danger (click)="removeNotification(notification)"><ion-icon name="trash"></ion-icon>Decline</button>
                     </ion-item-options>
                 </ion-item-sliding>
         </ion-list>

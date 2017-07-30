@@ -17,8 +17,8 @@ import { Alerts } from "../../providers/alerts";
 })
 export class CheckCredentialsPage implements OnInit {
 
-userForm: FormGroup;
-   birthday: any; 
+  userForm: FormGroup;
+  birthday: any; 
  
   constructor(public navCtrl: NavController, public storage: Storage, public user: UserService, 
   public navParams: NavParams, public alert: Alerts, public fb: FormBuilder, public auth: AuthService) {
@@ -26,9 +26,9 @@ userForm: FormGroup;
   }
 
   ngOnInit():any {
-       this.userForm = this.fb.group({
-           birthday: ['', Validators.required]
-       });
+    this.userForm = this.fb.group({
+        birthday: ['', Validators.required]
+    });
    }
 
    updateProfile() {

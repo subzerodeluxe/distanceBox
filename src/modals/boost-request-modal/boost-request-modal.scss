@@ -1,0 +1,59 @@
+.ios, .md {
+    boost-request-modal {
+        .scroll-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #6565B0;
+        }
+
+        h6 {
+            text-align: center;
+            font-size: 1.4em;
+            color: #fff; 
+        }  
+
+        p {
+            text-align: center;
+            color: #fff;
+        }
+
+        .request-box {
+            margin-top: 50px; 
+            margin-bottom: 50px;
+        }
+
+       .boost-request-buttons {
+            text-align: center; 
+        }
+
+        .profile-image {
+            margin-top: 20px; 
+            border: 2px solid #fff; 
+            border-radius: 100%;
+            width: 85px; 
+            height: 85px;
+            overflow: hidden;
+            margin-left: auto;
+            margin-right: auto;
+            display: block; 
+        }
+
+        .action-sheets-boost {
+            .ion-md-share {
+                color: #ED4248;
+            }
+            .ion-md-arrow-dropright-circle {
+                color: #508AE4;
+            }
+            .ion-md-heart-outline {
+                color: #31D55F;
+            }
+            .action-sheet-cancel ion-icon,
+            .action-sheet-destructive ion-icon {
+                color: #757575;
+            }
+        }
+    } 
+}

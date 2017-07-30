@@ -1,0 +1,21 @@
+<ion-content padding scrollbar-y-auto>
+  
+  <div class="request-box">
+
+    <img class="profile-image" *ngIf="profileImage" 
+       [src]="profileImage"/>
+    
+       <h6>{{ boostRequestObject.sendByName }} requested a boost!</h6>
+
+       <p>Cheer up {{ boostRequestObject.sendByName }}'s day by sending something special.
+       Would you like to create a boost?</p>
+      
+  </div>
+
+  <div class="boost-request-buttons">
+      <button ion-button color="secondary"
+      (click)="presentActionSheet()">Yes</button>
+      <button ion-button color="secondary" (click)="closeModal()">No</button>
+  </div>
+
+</ion-content>

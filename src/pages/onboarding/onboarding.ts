@@ -21,5 +21,4 @@ export class OnboardingPage {
     this.storage.remove('uid');
     this.navCtrl.setRoot('login'); 
   }
-
 }

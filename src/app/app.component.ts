@@ -1,14 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, MenuController } from 'ionic-angular';
+import { Platform, NavController, MenuController, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from "../providers/auth-service";
 import { AngularFireAuth } from "angularfire2/auth";
 import * as firebase from 'firebase/app'
-import * as moment from 'moment'; import { TimezoneService } from "../providers/timezone-service";
+import * as moment from 'moment'; 
+import { TimezoneService } from "../providers/timezone-service";
 import { Alerts } from "../providers/alerts";
 import { UserService } from "../providers/user-service";
 import { OneSignal } from "@ionic-native/onesignal";
+import { NotificationService } from "../providers/notification-service";
+import { ReceivedBoostRequest } from "../models/receivedBoostRequest.interface";
+import { BoostRequestModal } from "../modals/boost-request-modal/boost-request-modal";
 
 @Component({
   templateUrl: 'app.html'
@@ -25,6 +29,7 @@ export class DistanceBox {
   fetchingData: boolean = false; 
   noData: boolean = true; 
   oneSignalUid: string; 
+  receivedBoostRequest = {} as ReceivedBoostRequest; 
   
     // Tilburg
     correctTilburgDate: any; 
@@ -37,10 +42,10 @@ export class DistanceBox {
     fetchedYogjaData: boolean = false;  
 
   constructor(platform: Platform, statusBar: StatusBar, public user: UserService, splashScreen: SplashScreen, public alerts: Alerts, 
-  public menuCtrl: MenuController, public oneSignal: OneSignal, public afAuth: AngularFireAuth, public time: TimezoneService, public auth: AuthService) {
+  public menuCtrl: MenuController, public oneSignal: OneSignal, public modalCtrl: ModalController, public afAuth: AngularFireAuth, public push: NotificationService, 
+  public time: TimezoneService, public auth: AuthService) {
     
     this.firebase = firebase; 
-
     firebase.auth().onAuthStateChanged(user => {
       if(user) { // when user is authenticated 
         this.navCtrl.setRoot('credentials');
@@ -66,12 +71,32 @@ export class DistanceBox {
     this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
     this.oneSignal.setSubscription(true);
 
+    this.oneSignal.handleNotificationReceived().subscribe(data => {
+     
+      let action = data.payload.additionalData['action'];
+      
+      if(action === "requestBoost") {
+        let date = new Date().toString();  
+        let timestamp = firebase.database.ServerValue.TIMESTAMP; 
+        let requestedBy = data.payload.additionalData['requestedBy'];
+        let profileImage = data.payload.additionalData['profileImage'];
+        let sendByUid = data.payload.additionalData['sendByUid']; 
+        let userId = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:"";
+ 
+        this.receivedBoostRequest = { "sendToUid": userId, "timestamp": timestamp, "sendByName": requestedBy, "sendByUid": sendByUid, "date": date,
+        "sendByProfileImage": profileImage, "header": "New boost request", "body": requestedBy + " requested a boost", "accepted": false}; 
+
+        this.push.saveBoostRequestNotification(this.receivedBoostRequest); 
+      }
+    })
+
     this.oneSignal.handleNotificationOpened().subscribe(data => {
       let action = data.notification.payload.additionalData['action'];
-      let actionMessage = data.notification.payload.additionalData['message']; 
+      
+      if(action === "requestBoost") {
 
-      if(action === "openPage") {
-        this.navCtrl.setRoot('receivedNotication', { id: actionMessage })
+        let modal = this.modalCtrl.create(BoostRequestModal, { boostRequestObject: this.receivedBoostRequest }); 
+        modal.present();
       }
     })
     this.oneSignal.endInit();   

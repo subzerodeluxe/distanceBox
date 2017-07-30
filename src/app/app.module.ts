@@ -1,37 +1,45 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { DistanceBox } from './app.component';
+import { SafePipe } from "../pipes/safe-pipe";
+import { IonicStorageModule } from '@ionic/storage';
+import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Services 
+import { BoostService } from '../providers/boost-service';
+import { AuthService } from "../providers/auth-service";
+import { TimezoneService } from "../providers/timezone-service";
+import { WeatherService } from "../providers/weather-service";
+import { Alerts } from "../providers/alerts";
+import { UserService } from "../providers/user-service";
+import { StorageService } from "../providers/storage-service";
+import { NotificationService } from '../providers/notification-service';
+
+// Native
+import { OneSignal } from '@ionic-native/onesignal';
+import { Facebook } from "@ionic-native/facebook";
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Camera } from '@ionic-native/camera';
 
-import { DistanceBox } from './app.component';
-import { AuthService } from "../providers/auth-service";
-import { TimezoneService } from "../providers/timezone-service";
-import { WeatherService } from "../providers/weather-service";
-import { Facebook } from "@ionic-native/facebook";
-import { Alerts } from "../providers/alerts";
-import { UserService } from "../providers/user-service";
-import { MoodModal } from "../components/mood-modal/mood-modal";
-import { StorageService } from "../providers/storage-service";
-import { SafePipe } from "../pipes/safe-pipe";
-import { IonicStorageModule } from '@ionic/storage';
-import { HttpModule } from '@angular/http';
-import { BoostModal } from '../components/boost-modal/boost-modal';
-import { BoostService } from '../providers/boost-service';
-import { UserInfoComponent } from '../components/user-info/user-info';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { OneSignal } from '@ionic-native/onesignal';
+// Modals
+import { ImageModal } from '../modals/image-modal/image-modal';
+import { BoostRequestModal } from '../modals/boost-request-modal/boost-request-modal';
+import { BoostModal } from '../modals/boost-modal/boost-modal';
+import { MoodModal } from "../modals/mood-modal/mood-modal";
 
-
-// Import the AF2 Module
+// AF2 Modules
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { ImageModal } from '../components/image-modal/image-modal';
+
+// Components
 import { NotificationListComponent } from '../components/notification-list/notification-list';
-import { NotificationService } from '../providers/notification-service';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
+import { BoostDecisionComponent } from '../components/boost-decision/boost-decision';
+import { UserInfoComponent } from '../components/user-info/user-info';
 
 // setup Firebase credentials
 export const firebaseConfig = {
@@ -64,7 +72,9 @@ class CameraMock extends Camera {
     BoostModal,
     ImageModal,
     NotificationListComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    BoostRequestModal,
+    BoostDecisionComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +91,7 @@ class CameraMock extends Camera {
     DistanceBox,
     MoodModal,
     BoostModal,
+    BoostRequestModal,
     ImageModal
   ],
   providers: [

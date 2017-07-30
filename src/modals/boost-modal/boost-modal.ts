@@ -5,6 +5,7 @@ import { Alerts } from "../../providers/alerts";
 import { UserService } from "../../providers/user-service";
 import { NotificationService } from "../../providers/notification-service";
 
+
 @Component({
   selector: 'boost-modal',
   templateUrl: 'boost-modal.html',
@@ -26,21 +27,24 @@ export class BoostModal {
 
   fetchingData: boolean = false; 
   buttonState: any = "in";
-  name: string;
+  sendTo: string;
+  sendBy: string;
+  sendByProfileImage: string; 
+  sendByUid: string; 
   oneSignalId: string; 
 
   constructor(public navCtrl: NavController, public alerts: Alerts, public user: UserService, public pushService: NotificationService, public params: NavParams) {
-    this.name = params.get('shareMoodWith'); 
-    console.log(this.name);
+    this.sendTo = params.get('shareMoodWith'); 
+ 
+    this.user.findUserbyName(this.sendTo).subscribe(user => this.oneSignalId = user.oneSignalId); 
+    console.log("Send to: " + this.sendTo); 
 
-    this.user.findUserbyName(this.name).subscribe(user => this.oneSignalId = user.oneSignalId); 
-    console.log("Correct id: " + this.oneSignalId); 
-  //   let users = this.user.getUsers().subscribe(users => {
-  //     users.forEach(function(user) { 
-  //       user.oneSignalId
-  //       console.log("Que? " + user.oneSignalId);
-  //     })
-  //   })
+    this.user.getUserProfile().subscribe(user => {
+      this.sendBy = user.name;
+      this.sendByUid = user.$key; 
+      this.sendByProfileImage = user.profileImage; 
+    });
+    console.log("Send by: " + this.sendBy); 
   }
 
   ionViewDidEnter() { 
@@ -52,13 +56,13 @@ export class BoostModal {
         "app_id": "6324c641-04b6-4310-8190-359c8de46f19",
         "include_player_ids": [ this.oneSignalId ],
         "headings": {"en": "Boost request"},
-        "contents": {"en": "Maarten requested a boost!"},
-        "data": {"action": "openPage", "message": "This is a secret message!"}
+        "contents": {"en": this.sendBy + " requested a boost!"},
+        "data": {"action": "requestBoost", "requestedBy": this.sendBy, "profileImage": this.sendByProfileImage, "sendByUid": this.sendByUid }
       } 
     this.pushService.sendNotification(pushBody)
       .then(data => {
         this.alerts.presentTopToast("Push sent!")
-        this.alerts.presentBottomToast("Successfully sent your request to Maarten");
+        this.alerts.presentBottomToast("Successfully sent your request to " + this.sendTo);
       })
       .catch(err => { this.alerts.presentTopToast("Error sending push" + err)})
   }
