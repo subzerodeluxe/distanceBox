@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavParams, NavController } from "ionic-angular";
 import { Alerts } from "../../providers/alerts";
 import { StorageService } from "../../providers/storage-service";
@@ -11,16 +11,21 @@ import { UserService } from "../../providers/user-service";
   selector: 'image-modal',
   templateUrl: 'image-modal.html'
 })
-export class ImageModal {
+export class ImageModal implements OnInit{
 
   date: string;
   uid: string; 
-  oneSignalId: string; 
+  receivingOneSignalId: string; 
   moodPicture: any; 
   receivedPicture: any; 
+  pushNotificationImage: string; 
   imageObject = {} as Image;
+  receivedImageObject = {} as Image; 
+  imageUploader: string; 
   pictureUploaded: boolean; 
   loadProgress: number = 0;
+  shareImageWith: boolean;
+  persons: any; 
 
 
   constructor(public params: NavParams, public navCtrl: NavController, public user: UserService, public pushService: NotificationService, public auth: AuthService, public alerts: Alerts, public storage: StorageService) {
@@ -28,10 +33,20 @@ export class ImageModal {
     this.date = new Date().toDateString(); 
     this.uid = this.auth.afAuth.auth.currentUser.uid; 
 
-     this.user.getUserProfile().subscribe(user => {
-          this.oneSignalId = user.oneSignalId; 
-          console.log("osID: " + this.oneSignalId); 
-        });
+    if(params.get('imageObject')) {
+      this.receivedImageObject = params.get('imageObject');  // Ontvangt image object vanuit pushnotificatie 
+      this.pushNotificationImage = this.receivedImageObject.url; 
+    }
+
+    this.user.getUserProfile().subscribe(currentUser => {
+      this.imageUploader = currentUser.name; 
+    })
+  }
+
+  ngOnInit() {
+     this.user.getUsers().subscribe(users => {
+      this.persons = users;  
+    })
   }
 
   uploadImageToStorage() {
@@ -50,22 +65,30 @@ export class ImageModal {
   }
 
   uploadImageToDatabase() {
-    this.imageObject = { uploadedBy: this.uid, url: this.receivedPicture, timestamp: this.date }; 
+     if(this.shareImageWith) { 
+      console.log("Share with: " + this.shareImageWith); 
+      this.user.findUserbyName(this.shareImageWith).subscribe(user => {
+      this.receivingOneSignalId = user.oneSignalId; 
+      })
+    }
+
+    this.imageObject = { uploadedBy: this.uid, url: this.receivedPicture, timestamp: this.date, sentTo: this.receivingOneSignalId }; 
     this.storage.uploadImageToDatabase(this.imageObject)
       .then((success) => { 
         this.navCtrl.setRoot('dashboard');
 
+        let imageObject = this.imageObject; 
         let pushBody = {
           "app_id": "6324c641-04b6-4310-8190-359c8de46f19",
-          "include_player_ids": [ this.oneSignalId ],
+          "include_player_ids": [ this.receivingOneSignalId ],
           "headings": {"en": "New image"},
-          "contents": {"en": "Maarten uploaded a new image"},
-          "data": {"action": "openPage", "message": "This is a secret message!"}
+          "contents": {"en": this.imageUploader + " uploaded a new image"},
+          "data": {"action": "newImage", "imageObject": imageObject }
         } 
         this.pushService.sendNotification(pushBody)
           .then(data => {
             this.alerts.presentTopToast("Push sent!")
-             this.alerts.presentBottomToast("Successfully sent your image to Maarten");
+            this.alerts.presentBottomToast("Successfully sent your image to Maarten");
           })
           .catch(err => { this.alerts.presentTopToast("Error sending push" + err)})
       }).catch((error) => {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavParams, ViewController, LoadingController, NavController, ModalController, Platform } from "ionic-angular";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Alerts } from "../../providers/alerts";
@@ -11,7 +11,7 @@ import { ImageModal } from "../image-modal/image-modal";
   selector: 'mood-modal',
   templateUrl: 'mood-modal.html'
 })
-export class MoodModal {
+export class MoodModal implements OnInit {
 
   moodRating: any;
   moodColor: any; 
@@ -67,8 +67,7 @@ export class MoodModal {
         targetHeight: 500,
         saveToPhotoAlbum: true
       }).then(imageData => {
-        //let base64Image = 'data:image/jpeg;base64,' + imageData;
-        //this.imageData = imageData;
+  
         this.moodPicture = imageData; 
 
         let modal = this.modalCtrl.create(ImageModal, { moodPicture: this.moodPicture });

@@ -1,4 +1,4 @@
-<ion-content scrollbar-y-auto>
+<ion-content scrollbar-y-auto *ngIf="moodPicture">
   <div class="mood-picture">
     <img *ngIf="receivedPicture" [src]="receivedPicture | safePipe: 'url'"
     style="width: 100%" [hidden]="receivedPicture === null">
@@ -11,13 +11,32 @@
       </button>
   </div>  
 
+  <div class="share-image">
+    <ion-item *ngIf="pictureUploaded == true">
+        <ion-label>Share your image with:</ion-label>
+        <ion-select [(ngModel)]="shareImageWith" submitText="Share" cancelText="Nah">
+          <ion-option *ngFor="let person of persons" value="{{person.name}}">{{person.name}}</ion-option>
+        </ion-select>
+    </ion-item>
+  </div>
+
   <div text-center padding-top>
-      <button *ngIf="moodPicture && pictureUploaded" text-center 
+      <button *ngIf="moodPicture && pictureUploaded && shareImageWith != null" text-center 
       ion-button outline color="colorWhite" (click)="uploadImageToDatabase()">
         Share your image! 
       </button>
   </div>
 
-  <progress-bar [progress]="loadProgress"></progress-bar>
+  <progress-bar *ngIf="loadProgress == 0" [progress]="loadProgress"></progress-bar>
+
+  <div *ngIf="!receivedImageObject">
+    <p>Er is een foto binnengekomen</p>
+
+   <img *ngIf="receivedPicture" [src]="pushNotificationImage | safePipe: 'url'"
+    style="width: 100%" [hidden]="pushNotificationImage === null">
+  </div>
 
 </ion-content>
+
+
+

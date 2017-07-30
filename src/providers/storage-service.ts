@@ -32,4 +32,8 @@ export class StorageService {
     return firebase.database().ref('boxes/DA72tCfOH2ZFaCZcVnEPj53cl7JA/data/images').push(imageObject); 
   }
 
+  getAllImages() {
+    return this.db.list('boxes/DA72tCfOH2ZFaCZcVnEPj53cl7JA/data/images'); 
+  }
+
 }

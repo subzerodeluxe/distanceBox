@@ -13,6 +13,7 @@ import { OneSignal } from "@ionic-native/onesignal";
 import { NotificationService } from "../providers/notification-service";
 import { ReceivedBoostRequest } from "../models/receivedBoostRequest.interface";
 import { BoostRequestModal } from "../modals/boost-request-modal/boost-request-modal";
+import { ImageModal } from "../modals/image-modal/image-modal";
 
 @Component({
   templateUrl: 'app.html'
@@ -96,6 +97,11 @@ export class DistanceBox {
       if(action === "requestBoost") {
 
         let modal = this.modalCtrl.create(BoostRequestModal, { boostRequestObject: this.receivedBoostRequest }); 
+        modal.present();
+      } else if (action === "newImage") {
+
+        let imageObject = data.notification.payload.additionalData['imageObject']; 
+        let modal = this.modalCtrl.create(ImageModal, { imageObject: imageObject }); 
         modal.present();
       }
     })
