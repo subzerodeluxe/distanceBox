@@ -38,7 +38,7 @@
                 <ion-item-sliding *ngFor="let notification of receivedNotifications | async">
                     <ion-item (click)="openBoostRequest(notification)">
                         <ion-avatar item-start>
-                            <img [src]="notification.sendByProfileImage">
+                            <img [src]="notification.sentByProfileImage">
                         </ion-avatar>
                         <h2>{{ notification.timestamp | formatTimestamp }}</h2>
                         <p>{{ notification.body }}</p>

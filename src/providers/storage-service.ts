@@ -18,12 +18,12 @@ export class StorageService {
     let firebasePutString = firebase.storage().ref('/uploads/images/' + image)   
     .putString(imageString, 'base64', {contentType: 'image/png'}); // store in FB storage
 
-    firebasePutString.on('state_changed', (snapshot) => {
+    /*firebasePutString.on('state_changed', (snapshot) => {
       this.zone.run(() => {
         this.percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Percentage: " + this.percentage);
       })
-    })
+    })*/
     
     return firebasePutString;
   }
