@@ -47,5 +47,4 @@ export class NotificationService {
   removeBoostRequest(request) {
     this.receivedBoostRequestsRef.remove(request.$key); 
   }
-
 }

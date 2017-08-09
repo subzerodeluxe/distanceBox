@@ -15,7 +15,7 @@ export class BoostRequestModal {
 
   constructor(public nav: NavParams, public viewCtrl: ViewController, public platform: Platform, public actionSheetCtrl: ActionSheetController) {
     this.boostRequestObject = this.nav.get('boostRequestObject');
-    this.profileImage = this.boostRequestObject.sendByProfileImage; 
+    this.profileImage = this.boostRequestObject.sentByProfileImage; 
     console.log("Boostrequest Object: " + JSON.stringify(this.profileImage)); 
   }
 

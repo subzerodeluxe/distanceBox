@@ -3,5 +3,6 @@ export interface Image {
   timestamp: string;
   uploadedBy: string;
   url: string;
-  sentTo: string;   
+  sentTo_OneSignalId: string;
+  sentToUid?: string;  
 }

@@ -22,7 +22,7 @@ import { BoostRequestModal } from "../../modals/boost-request-modal/boost-reques
 export class Dashboard {
 
   @ViewChild(CountdownComponent) countdown: CountdownComponent;
-  
+  shouldAnimate: boolean = true;
   userName: string;
   showMoodBox: boolean = true; 
   shakeButton: boolean = true; 

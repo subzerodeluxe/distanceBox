@@ -14,6 +14,7 @@ import { NotificationService } from "../providers/notification-service";
 import { ReceivedBoostRequest } from "../models/receivedBoostRequest.interface";
 import { BoostRequestModal } from "../modals/boost-request-modal/boost-request-modal";
 import { ImageModal } from "../modals/image-modal/image-modal";
+import { Image } from "../models/image.interface";
 
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +31,8 @@ export class DistanceBox {
   fetchingData: boolean = false; 
   noData: boolean = true; 
   oneSignalUid: string; 
-  receivedBoostRequest = {} as ReceivedBoostRequest; 
+  receivedBoostRequest = {} as ReceivedBoostRequest;
+  recievedImageObject = {} as Image; 
   
     // Tilburg
     correctTilburgDate: any; 
@@ -84,10 +86,12 @@ export class DistanceBox {
         let sendByUid = data.payload.additionalData['sendByUid']; 
         let userId = this.afAuth.auth.currentUser?this.afAuth.auth.currentUser.uid:"";
  
-        this.receivedBoostRequest = { "sendToUid": userId, "timestamp": timestamp, "sendByName": requestedBy, "sendByUid": sendByUid, "date": date,
-        "sendByProfileImage": profileImage, "header": "New boost request", "body": requestedBy + " requested a boost", "accepted": false}; 
+        this.receivedBoostRequest = { "sentToUid": userId, "timestamp": timestamp, "sentByName": requestedBy, "sentByUid": sendByUid, "date": date,
+        "sentByProfileImage": profileImage, "header": "New boost request", "body": requestedBy + " requested a boost", "accepted": false}; 
 
         this.push.saveBoostRequestNotification(this.receivedBoostRequest); 
+      } else if (action === "newImage") {
+        this.recievedImageObject = data.payload.additionalData['imageObject'];
       }
     })
 
@@ -99,9 +103,8 @@ export class DistanceBox {
         let modal = this.modalCtrl.create(BoostRequestModal, { boostRequestObject: this.receivedBoostRequest }); 
         modal.present();
       } else if (action === "newImage") {
-
-        let imageObject = data.notification.payload.additionalData['imageObject']; 
-        let modal = this.modalCtrl.create(ImageModal, { imageObject: imageObject }); 
+ 
+        let modal = this.modalCtrl.create(ImageModal, { imageObject: this.recievedImageObject }); 
         modal.present();
       }
     })

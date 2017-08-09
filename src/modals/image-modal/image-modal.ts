@@ -28,7 +28,8 @@ export class ImageModal implements OnInit{
   persons: any; 
 
 
-  constructor(public params: NavParams, public navCtrl: NavController, public user: UserService, public pushService: NotificationService, public auth: AuthService, public alerts: Alerts, public storage: StorageService) {
+  constructor(public params: NavParams, public navCtrl: NavController, public user: UserService, 
+    public pushService: NotificationService, public auth: AuthService, public alerts: Alerts, public storage: StorageService) {
     this.moodPicture = params.get('moodPicture'); 
     this.date = new Date().toDateString(); 
     this.uid = this.auth.afAuth.auth.currentUser.uid; 
@@ -72,10 +73,9 @@ export class ImageModal implements OnInit{
       })
     }
 
-    this.imageObject = { uploadedBy: this.uid, url: this.receivedPicture, timestamp: this.date, sentTo: this.receivingOneSignalId }; 
+    this.imageObject = { uploadedBy: this.uid, url: this.receivedPicture, timestamp: this.date, sentTo_OneSignalId: this.receivingOneSignalId }; 
     this.storage.uploadImageToDatabase(this.imageObject)
       .then((success) => { 
-        this.navCtrl.setRoot('dashboard');
 
         let imageObject = this.imageObject; 
         let pushBody = {
@@ -87,6 +87,7 @@ export class ImageModal implements OnInit{
         } 
         this.pushService.sendNotification(pushBody)
           .then(data => {
+            this.navCtrl.setRoot('dashboard');
             this.alerts.presentTopToast("Push sent!")
             this.alerts.presentBottomToast("Successfully sent your image to Maarten");
           })

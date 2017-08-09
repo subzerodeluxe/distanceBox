@@ -30,7 +30,7 @@
   <progress-bar *ngIf="loadProgress == 0" [progress]="loadProgress"></progress-bar>
 
   <div *ngIf="!receivedImageObject">
-    <p>Er is een foto binnengekomen</p>
+    <p>Er is een foto binnengekomen!</p>
 
    <img *ngIf="receivedPicture" [src]="pushNotificationImage | safePipe: 'url'"
     style="width: 100%" [hidden]="pushNotificationImage === null">

@@ -63,3 +63,28 @@
   font-weight: 400; 
   src: url('../assets/fonts/montserrat-regular.woff2');
 }
+
+// ANIMATION FOR SLIDING DIRECTIVE ///
+@-webkit-keyframes slidingAnimation {
+  0% {
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+  }
+ 
+  50% {
+    transform: translate3d(-70px,0,0);
+    -webkit-transform: translate3d(-70px,0,0);
+  }
+ 
+  100% {
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+  }
+}
+ 
+.itemSlidingAnimation {
+    -webkit-animation: slidingAnimation;
+    animation: slidingAnimation;
+    -webkit-animation-duration: 1000ms;
+    animation-duraton: 1000ms;
+}

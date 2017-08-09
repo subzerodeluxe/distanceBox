@@ -42,9 +42,4 @@ export class SubmitMood {
       msg.present(); 
     }
   }
-
-  
-
-
-
 }

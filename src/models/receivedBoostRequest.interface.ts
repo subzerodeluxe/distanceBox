@@ -1,11 +1,11 @@
 export interface ReceivedBoostRequest {
   $key?: string // nodig voor verwijderen 
-  sendToUid: string,
-  sendByUid: string,  
+  sentToUid: string,
+  sentByUid: string,  
   timestamp: any, 
   date: string; 
-  sendByName: string; 
-  sendByProfileImage?: string;
+  sentByName: string; 
+  sentByProfileImage?: string;
   header: string;
   body: string;
   accepted: boolean; 
