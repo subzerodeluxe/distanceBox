@@ -1,24 +1,34 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { NavController, NavParams, Platform, IonicPage } from 'ionic-angular';
+import { GoogleMapsService } from "../../providers/google-maps-service";
+import { LocationsService } from "../../providers/locations-service";
 
-/**
- * Generated class for the RoadmapPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+@IonicPage({
+  name: 'roadMap'
+})
 
 @Component({
   selector: 'page-roadmap',
   templateUrl: 'roadmap.html',
 })
-export class RoadmapPage {
+export class RoadMap {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  @ViewChild('map') mapElement: ElementRef;
+  @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
+ 
+  constructor(public navCtrl: NavController, public maps: GoogleMapsService, 
+    public platform: Platform, public locations: LocationsService) {
+ 
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RoadmapPage');
+ 
+  ionViewDidLoad(){
+ 
+    this.platform.ready().then(() => {
+ 
+        let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
+ 
+    });
+ 
   }
 
 }

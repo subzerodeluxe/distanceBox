@@ -16,6 +16,9 @@ import { Alerts } from "../providers/alerts";
 import { UserService } from "../providers/user-service";
 import { StorageService } from "../providers/storage-service";
 import { NotificationService } from '../providers/notification-service';
+import { ConnectivityService } from "../providers/connectivity-service";
+import { GoogleMapsService } from "../providers/google-maps-service";
+import { LocationsService } from "../providers/locations-service";
 
 // Native
 import { OneSignal } from '@ionic-native/onesignal';
@@ -23,6 +26,8 @@ import { Facebook } from "@ionic-native/facebook";
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Camera } from '@ionic-native/camera';
+import { Network } from '@ionic-native/network';
+import { Geolocation } from '@ionic-native/geolocation';
 
 // Modals
 import { ImageModal } from '../modals/image-modal/image-modal';
@@ -98,14 +103,19 @@ class CameraMock extends Camera {
   ],
   providers: [
     StatusBar,
-    SplashScreen, 
-    Camera, 
+    SplashScreen,
+    Geolocation, 
+    //Camera, 
     OneSignal,
+    Network,
     {provide: Camera, useClass: CameraMock},
     AuthService, TimezoneService, WeatherService,
     Alerts, Facebook, UserService, StorageService,
     BoostService,
-    NotificationService
+    NotificationService,
+    ConnectivityService,
+    GoogleMapsService,
+    LocationsService
   ]
 })
 export class AppModule {}
