@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { LocationsService } from "../../../providers/locations-service";
 
 @IonicPage({
   name: 'list'
@@ -11,11 +12,13 @@ import { NavController, NavParams, IonicPage } from 'ionic-angular';
 })
 export class List {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  locations: any; 
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ListPage');
+  constructor(public location: LocationsService) {}
+
+  ionViewDidEnter() {
+    this.locations = this.location.getLocations(); 
+    console.log("Binnengekomen locaties: " +this.locations);
   }
 
 }

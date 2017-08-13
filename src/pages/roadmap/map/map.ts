@@ -25,10 +25,24 @@ export class Map {
   ionViewDidLoad(){
  
     this.platform.ready().then(() => {
- 
+
         let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
- 
+        let locationsLoaded = this.locations.getLocations();
+
+        Promise.all([
+            mapLoaded,
+            locationsLoaded
+        ]).then((result) => {
+
+            let locations = result[1];
+
+            for(let location of locations){
+                this.maps.addMarker(location.latitude, location.longitude);
+            }
+
+        });
+
     });
  
-  }
+    }
 }

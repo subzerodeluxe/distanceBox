@@ -16,7 +16,7 @@ export class GoogleMapsService {
   mapLoaded: any;
   mapLoadedObserver: any;
   markers: any = [];
-  apiKey: string;
+  apiKey = "AIzaSyDjGQHyni-Yi2omdwTPDlCwWk-CwyC2FSs";
  
   constructor(public connectivityService: ConnectivityService, public geolocation: Geolocation) {
  
@@ -96,7 +96,7 @@ export class GoogleMapsService {
         }
  
         this.map = new google.maps.Map(this.mapElement, mapOptions);
-        let sasi = new google.maps.LatLng(-7.822228, 110.368762);
+        let sasi = new google.maps.LatLng(-7.822276, 110.3692412);
         let image = {
           url: "https://firebasestorage.googleapis.com/v0/b/distancebox.appspot.com/o/SasiMarker%2FsasiMarker.png?alt=media&token=f8efdb1f-2318-4e1e-b21f-ba49d720d085",
           scaledSize : new google.maps.Size(30, 30)
