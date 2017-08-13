@@ -11,6 +11,7 @@ export class GoogleMapsService {
   mapElement: any;
   pleaseConnect: any;
   map: any;
+  sasiMarker: any; 
   mapInitialised: boolean = false;
   mapLoaded: any;
   mapLoadedObserver: any;
@@ -86,26 +87,30 @@ export class GoogleMapsService {
     this.mapInitialised = true;
  
     return new Promise((resolve) => {
- 
-      this.geolocation.getCurrentPosition().then((position) => {
- 
-        // UNCOMMENT FOR NORMAL USE
-        //let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
- 
-        let latLng = new google.maps.LatLng(40.713744, -74.009056);
-        let sasi = new google.maps.LatLng(-7.795580, 110.369490);
+        let yogja = new google.maps.LatLng(-7.795580, 110.369490);
  
         let mapOptions = {
-          center: sasi,
-          zoom: 15,
+          center: yogja,
+          zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
  
         this.map = new google.maps.Map(this.mapElement, mapOptions);
+        let sasi = new google.maps.LatLng(-7.822228, 110.368762);
+        let image = {
+          url: "https://firebasestorage.googleapis.com/v0/b/distancebox.appspot.com/o/SasiMarker%2FsasiMarker.png?alt=media&token=f8efdb1f-2318-4e1e-b21f-ba49d720d085",
+          scaledSize : new google.maps.Size(30, 30)
+        }
+
+        this.sasiMarker = new google.maps.Marker({
+          position: sasi,
+          animation: google.maps.Animation.DROP,
+          title: "Sasi's place",
+          icon: image
+        })
+
+        this.sasiMarker.setMap(this.map);
         resolve(true);
- 
-      });
- 
     });
  
   }

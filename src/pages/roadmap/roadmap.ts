@@ -13,22 +13,10 @@ import { LocationsService } from "../../providers/locations-service";
 })
 export class RoadMap {
 
-  @ViewChild('map') mapElement: ElementRef;
-  @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
  
-  constructor(public navCtrl: NavController, public maps: GoogleMapsService, 
-    public platform: Platform, public locations: LocationsService) {
- 
-  }
- 
-  ionViewDidLoad(){
- 
-    this.platform.ready().then(() => {
- 
-        let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
- 
-    });
- 
-  }
+  tab1Root: any = 'map';
+  tab2Root: any = 'list';
+
+  constructor() {}
 
 }

@@ -1,19 +1,4 @@
-<ion-header>
-    <ion-navbar color="primary">
-        <ion-buttons start>
-            <button ion-button icon-only menuToggle start>
-                <ion-icon name="menu"></ion-icon>
-            </button>
-        </ion-buttons>
-    </ion-navbar>
-</ion-header>
- 
-<ion-content>
- 
-  <div #pleaseConnect id="please-connect">
-    <p>Please connect to the Internet...</p>
-  </div>
- 
-  <div #map id="map"></div>
- 
-</ion-content>
+<ion-tabs>
+  <ion-tab [root]="tab1Root" tabTitle="Map" tabIcon="navigate"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="List" tabIcon="list"></ion-tab>
+</ion-tabs>
