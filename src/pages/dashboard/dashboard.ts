@@ -9,7 +9,8 @@ import { UserService } from "../../providers/user-service";
 import { NotificationService } from "../../providers/notification-service";
 import { Alerts } from "../../providers/alerts";
 import { BoostRequestModal } from "../../modals/boost-request-modal/boost-request-modal";
-
+import { Gif } from "../../pages/gif/gif";
+ 
 @IonicPage({
   name: 'dashboard'
 })
@@ -68,6 +69,10 @@ export class Dashboard {
 
   loadMoodRate() {
     this.navCtrl.push('submitMood'); 
+  }
+
+  loadGifPage() {
+    this.navCtrl.push(Gif);
   }
 
   removeNotification(boostRequest) {

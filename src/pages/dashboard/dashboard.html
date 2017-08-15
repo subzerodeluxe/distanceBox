@@ -35,6 +35,10 @@
                     Notifications 
                 </ion-list-header>
 
+                <button ion-button color="secondary" 
+                (click)="loadGifPage()">Click here
+                </button>
+
                 <ion-item-sliding *ngFor="let notification of receivedNotifications | async">
                     <ion-item (click)="openBoostRequest(notification)">
                         <ion-avatar item-start>
