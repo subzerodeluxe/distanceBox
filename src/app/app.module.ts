@@ -48,16 +48,7 @@ import { UserInfoComponent } from '../components/user-info/user-info';
 import { AnimateItemSlidingDirective } from "../directives/animate-item-sliding";
 import { Gif } from "../pages/gif/gif";
 
-// setup Firebase credentials
-export const firebaseConfig = {
-    apiKey: "AIzaSyB9j6apbWkYb02Qjr8C4SPdZWO_lRC_WWg",
-    authDomain: "distancebox.firebaseapp.com",
-    databaseURL: "https://distancebox.firebaseio.com",
-    storageBucket: "distancebox.appspot.com",
-    messagingSenderId: "116109602089"
-};
-
- class CameraMock extends Camera {
+class CameraMock extends Camera {
    getPicture(options){ 
      return new Promise( (resolve, reject) => {
        resolve(`TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIG
